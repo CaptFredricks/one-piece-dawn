@@ -1,0 +1,115 @@
+:root {
+	--rarity-common: #efaf6f;
+	--rarity-uncommon: #afef6f;
+	--rarity-rare: #6fafef;
+	--rarity-fabled: #ef6faf;
+	--rarity-legendary: #ef6f6f;
+}
+
+.characters,
+.card {
+	background-color: #f2f2f2;
+	box-shadow: 1px 1px 3px 0px #000;
+	margin: 1em 0;
+	padding: 0.75em;
+	width: 100%;
+}
+
+.character {
+	height: 2em;
+}
+
+.character.common:hover,
+.card.common .name {
+	background-color: var(--rarity-common);
+}
+
+.character.uncommon:hover,
+.card.uncommon .name {
+	background-color: var(--rarity-uncommon);
+}
+
+.character.rare:hover,
+.card.rare .name {
+	background-color: var(--rarity-rare);
+}
+
+.character.fabled:hover,
+.card.fabled .name {
+	background-color: var(--rarity-fabled);
+}
+
+.character.legendary:hover,
+.card.legendary .name {
+	background-color: var(--rarity-legendary);
+}
+
+/* Character cards */
+
+.card {
+	max-width: 600px;
+	margin: 1em auto;
+}
+
+.card .name {
+	font-size: 1.5em;
+	margin: 0;
+	padding: 0.25em 0 0.375em;
+	position: relative;
+}
+
+.card .level {
+	background-color: #ffd700;
+	border: 2px solid #802e02;
+	border-radius: 50%;
+	color: #000;
+	cursor: help;
+	font-size: 1.25rem;
+	height: 2rem;
+	line-height: 1.65rem;
+	position: absolute;
+	  top: 0.5rem;
+	  right: 0.25rem;
+	width: 2rem;
+}
+
+.card .stats {
+	display: flex;
+	  justify-content: center;
+}
+
+.card .stats dt {
+	font-weight: 700;
+	margin-right: 0.375em;
+}
+
+.card .stats dt::after {
+	content: ': ';
+}
+
+.card .stats dd {
+	margin-left: 0;
+}
+
+.card .stats dd:not(:last-child) {
+	margin-right: 1.5em;
+}
+
+.card .abilities {
+	background-color: #fff;
+	box-shadow: 0 0 2px 0px #000 inset;
+	display: flex;
+	  align-items: center;
+	  flex-wrap: wrap;
+	  justify-content: center;
+	list-style: none;
+	padding: 0;
+}
+
+.card .abilities li {
+	color: #3a3a3a;
+	cursor: help;
+	flex-basis: 33.33%;
+	font-weight: 700;
+	padding: 1em 0.5em;
+}
