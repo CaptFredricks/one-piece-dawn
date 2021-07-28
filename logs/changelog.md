@@ -4,6 +4,23 @@
 *Versions: X.x.x (major releases), x.X.x (standard releases), x.x.X (minor releases/bug fixes)*<br>
 *Other: [a] - alpha, [b] - beta*
 
+## Version 0.2.0 (2021-07-24)
+
+- Added formations
+- Added level unlock info to character cards
+- Added a license (GNU General Public License, ver. 3)
+
+**Modified files:**
+- LICENSE.md (N)
+- public/index.html (M)
+- src/App.js (M)
+- src/components/Characters/CharacterCard.js
+- src/components/Formation/EditFormation.js (N)
+- src/components/Formation/Formation.css (N)
+- src/components/Formation/Formation.js (N)
+- src/components/Formation/FormationForm.js (N)
+- src/components/Menu.js (M)
+
 ## Version 0.1.0 (2021-07-22)
 
 - Set up all the core files

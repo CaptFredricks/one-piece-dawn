@@ -58,6 +58,7 @@ const CharacterCard = ({ match }) => {
 					attack: row.attack,
 					defense: row.defense,
 					heal: row.heal,
+					lvl_unlock: row.lvl_unlock,
 					description: row.description,
 				};
 			});
@@ -94,9 +95,10 @@ const CharacterCard = ({ match }) => {
 						{abIsLoading ? <p>Loading...</p> : (abData.length > 0 ? <ul className="abilities">
 							{abData.map(ab => {
 								return <li key={ab.id} title={`${ab.name}
-	Attack: ${ab.attack} • Defense: ${ab.defense} • Heal: ${ab.heal}
+  Attack: ${ab.attack} • Defense: ${ab.defense} • Heal: ${ab.heal}
+  Unlocks at: Lv${ab.lvl_unlock}
 
-	${ab.description}`}>{ab.name}</li>
+${ab.description}`}>{ab.name}</li>
 							})}
 						</ul> : <p>This character has no abilities.</p>)}
 					</div>

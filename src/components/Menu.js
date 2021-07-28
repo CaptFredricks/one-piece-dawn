@@ -8,7 +8,7 @@ const Menu = () => {
 			<h1>One Piece Dawn</h1>
 			<ul className="menu-buttons">
 				<li><button>Fight!</button></li>
-				
+				<li><Link to="/formation/" className="menu-button">Formation</Link></li>
 				<li><Link to="/characters/" className="menu-button">Characters</Link></li>
 				<li><button>Settings</button></li>
 			</ul>
