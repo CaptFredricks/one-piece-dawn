@@ -1,85 +1,25 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import FetchFormation from '../Fetch/FetchFormation';
+import FetchCharacters from '../Fetch/FetchCharacters';
 import FormationForm from './FormationForm';
 
 const EditFormation = ({ match }) => {
-	const [fmData, setFmData] = useState([]);
-	const [chData, setChData] = useState([]);
-	const [fmIsLoading, setFmIsLoading] = useState(false);
-	const [chIsLoading, setChIsLoading] = useState(false);
-	const [fmError, setFmError] = useState(null);
-	const [chError, setChError] = useState(null);
-	const fmPath = '/formation/';
-	const chPath = '/characters/';
+	// Fetch formation data
+	const formation = FetchFormation();
 	
-	/* Fetch formation data */
-	
-	const fetchFormData = useCallback(async () => {
-		setFmIsLoading(true);
-		setFmError(null);
-		
-		try {
-			const response = await fetch(`/api${fmPath}`);
-			
-			if(!response.ok) {
-				throw new Error('Something went wrong!');
-			}
-			
-			const dataIn = await response.json();
-
-			setFmData(dataIn);
-		} catch(error) {
-			setFmError(error.message);
-		}
-		setFmIsLoading(false);
-	}, []);
-	
-	/* Fetch character data */
-	
-	const fetchCharData = useCallback(async () => {
-		setChIsLoading(true);
-		setChError(null);
-		
-		try {
-			const response = await fetch(`/api${chPath}`);
-			
-			if(!response.ok) {
-				throw new Error('Something went wrong!');
-			}
-			
-			const dataIn = await response.json();
-
-			const transformedData = dataIn.results.map(row => {
-				return {
-					id: row.id,
-					name: row.name
-				};
-			});
-			setChData(transformedData);
-		} catch(error) {
-			setChError(error.message);
-		}
-		setChIsLoading(false);
-	}, []);
-	
-	useEffect(() => {
-		fetchFormData();
-		fetchCharData();
-	}, [fetchFormData, fetchCharData]);
+	// Fetch characters data
+	const characters = FetchCharacters();
 	
 	let content = <p>No characters found!</p>;
 	
-	if(chData.length > 0) {
+	if(Object.keys(formation.data).length > 0 && Object.keys(characters.data).length > 0) {
 		content = <div className="content">
-					<FormationForm form={fmData} chars={chData} />
+					<FormationForm form={formation.data} chars={characters.data} />
 				</div>;
 	}
 	
-	if(chError) {
-		content = <p>{chError}</p>;
-	}
-	
-	if(chIsLoading) {
+	if(formation.isLoading || characters.isLoading) {
 		content = <p>Loading...</p>;
 	}
 	

@@ -4,6 +4,46 @@
 *Versions: X.x.x (major releases), x.X.x (standard releases), x.x.X (minor releases/bug fixes)*<br>
 *Other: [a] - alpha, [b] - beta*
 
+## Version 0.3.0 (2021-08-22)
+
+- Added account management
+- Code cleanup
+- Separated all database fetching into separate components
+- Abilities data for both the player and NPC formations are now fetched along with the character data
+- Streamlined the player and NPC formation components
+- Created the gameplay for a story stage
+- Revamped the story component
+- The status update component now displays information about each stage, turn by turn
+
+**Modified files:**
+- src/App.js
+- src/assets/Belly.png (N)
+- src/components/Account/Account.css (N)
+- src/components/Account/Account.js (N)
+- src/components/Account/AccountForm.js (N)
+- src/components/Account/EditAccount.js (N)
+- src/components/Characters/CharacterCard.js
+- src/components/Characters/Characters.js
+- src/components/Fetch/FetchAbilities.js (N)
+- src/components/Fetch/FetchAccount.js (N)
+- src/components/Fetch/FetchCharacter.js (N)
+- src/components/Fetch/FetchCharacters.js (N)
+- src/components/Fetch/FetchFormation.js (N)
+- src/components/Fetch/FetchFormationNPC.js (N)
+- src/components/Fetch/FetchFormationPlayer.js (N)
+- src/components/Fetch/FetchFormationStage.js (N)
+- src/components/Fetch/FetchStory.js (N)
+- src/components/Formation/EditFormation.js
+- src/components/Formation/Formation.js
+- src/components/Formation/FormationForm.js
+- src/components/Menu.js
+- src/components/Story/Formations/FormationNPC.js (N)
+- src/components/Story/Formations/FormationPlayer.js (N)
+- src/components/Story/PlayStage.js (N)
+- src/components/Story/StatusUpdates.js (N)
+- src/components/Story/Story.css (N)
+- src/components/Story/Story.js (N)
+
 ## Version 0.2.0 (2021-07-24)
 
 - Added formations

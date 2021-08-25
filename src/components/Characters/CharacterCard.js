@@ -1,99 +1,37 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+import FetchCharacter from '../Fetch/FetchCharacter';
+import FetchAbilities from '../Fetch/FetchAbilities';
 
 const CharacterCard = ({ match }) => {
-	const [chData, setChData] = useState([]);
-	const [abData, setAbData] = useState([]);
-	const [chIsLoading, setChIsLoading] = useState(false);
-	const [abIsLoading, setAbIsLoading] = useState(false);
-	const [chError, setChError] = useState(null);
-	const [abError, setAbChError] = useState(null);
-	
-	const chPath = '/characters/';
-	const abPath = '/abilities/';
 	const id = match.params.propsId;
 	
-	/* Fetch character data */
+	// Fetch character data
+	const character = FetchCharacter(id);
 	
-	const fetchCharData = useCallback(async () => {
-		setChIsLoading(true);
-		setChError(null);
-		
-		try {
-			const response = await fetch(`/api${chPath}${id}/`);
-			
-			if(!response.ok) {
-				throw new Error('Something went wrong!');
-			}
-			
-			const dataIn = await response.json();
-			
-			setChData(dataIn);
-		} catch(error) {
-			setChError(error.message);
-		}
-		setChIsLoading(false);
-	}, []);
-	
-	/* Fetch abilities data */
-	
-	const fetchAbilData = useCallback(async () => {
-		setAbIsLoading(true);
-		setAbChError(null);
-		
-		try {
-			const response = await fetch(`/api${abPath}${id}/`);
-			
-			if(!response.ok) {
-				throw new Error('Something went wrong!');
-			}
-			
-			const dataIn = await response.json();
-			
-			const transformedData = dataIn.results.map(row => {
-				return {
-					id: row.id,
-					ch: row.ch,
-					name: row.name,
-					attack: row.attack,
-					defense: row.defense,
-					heal: row.heal,
-					lvl_unlock: row.lvl_unlock,
-					description: row.description,
-				};
-			});
-			setAbData(transformedData);
-		} catch(error) {
-			setAbChError(error.message);
-		}
-		setAbIsLoading(false);
-	}, []);
-	
-	useEffect(() => {
-		fetchCharData();
-		fetchAbilData();
-	}, [fetchCharData, fetchAbilData]);
+	// Fetch abilities data
+	const abilities = FetchAbilities(id);
 	
 	let content = <p>No character data found!</p>;
 	
-	if(Object.keys(chData).length > 0) {
+	if(Object.keys(character.data).length > 0 && Object.keys(abilities.data).length > 0) {
 		content = <div className="content">
-					<div className={`card ${chData.rarity.toLowerCase()}`}>
+					<div className={`card ${character.data.rarity.toLowerCase()}`}>
 						<h1 className="name">
-							{chData.name}
-							<span className="level" title="Level">{chData.level}</span>
+							{character.data.name}
+							<span className="level" title="Level">{character.data.level}</span>
 						</h1>
 						<dl className="stats">
 							<dt>HP</dt>
-							<dd>{chData.hp}</dd>
+							<dd>{character.data.hp}</dd>
 							<dt>Dmg</dt>
-							<dd>{chData.dmg}</dd>
+							<dd>{character.data.dmg}</dd>
 						</dl>
 						<h2>Description</h2>
-						<p>{chData.description}</p>
+						<p>{character.data.description}</p>
 						<h2>Abilities</h2>
-						{abIsLoading ? <p>Loading...</p> : (abData.length > 0 ? <ul className="abilities">
-							{abData.map(ab => {
+						{abilities.isLoading ? <p>Loading...</p> : (abilities.data.length > 0 ? <ul className="abilities">
+							{abilities.data.map(ab => {
 								return <li key={ab.id} title={`${ab.name}
   Attack: ${ab.attack} • Defense: ${ab.defense} • Heal: ${ab.heal}
   Unlocks at: Lv${ab.lvl_unlock}
@@ -105,18 +43,14 @@ ${ab.description}`}>{ab.name}</li>
 				</div>;
 	}
 	
-	if(chError) {
-		content = <p>{chError}</p>;
-	}
-	
-	if(chIsLoading) {
+	if(character.isLoading) {
 		content = <p>Loading...</p>;
 	}
 	
 	return (
 		<main>
 			<div className="breadcrumb">
-				<Link to="/">Menu</Link> &rsaquo; <Link to={chPath}>Characters</Link> &rsaquo; {chData.name}
+				<Link to="/">Menu</Link> &rsaquo; <Link to="/characters/">Characters</Link> &rsaquo; {character.data.name}
 			</div>
 			{content}
 		</main>

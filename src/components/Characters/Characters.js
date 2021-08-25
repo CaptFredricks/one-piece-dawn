@@ -1,53 +1,19 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import { Link, Route } from 'react-router-dom';
+import FetchCharacters from '../Fetch/FetchCharacters';
 import Character from './Character';
 import CharacterCard from './CharacterCard';
 import './Characters.css';
 
 const Characters = ({ match }) => {
-	const [data, setData] = useState([]);
-	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState(null);
 	const path = '/characters/';
 	
-	const fetchData = useCallback(async () => {
-		setIsLoading(true);
-		setError(null);
-		
-		try {
-			const response = await fetch(`/api${path}`);
-			
-			if(!response.ok) {
-				throw new Error('Something went wrong!');
-			}
-			
-			const dataIn = await response.json();
-
-			const transformedData = dataIn.results.map(row => {
-				return {
-					id: row.id,
-					name: row.name,
-					hp: row.hp,
-					dmg: row.dmg,
-					level: row.level,
-					type: row.type,
-					rarity: row.rarity
-				};
-			});
-			setData(transformedData);
-		} catch(error) {
-			setError(error.message);
-		}
-		setIsLoading(false);
-	}, []);
-	
-	useEffect(() => {
-		fetchData();
-	}, [fetchData]);
+	// Fetch characters data
+	const characters = FetchCharacters();
 	
 	let content = <p>No characters found!</p>;
 	
-	if(data.length > 0) {
+	if(Object.keys(characters.data).length > 0) {
 		content = <div className="content">
 					<h1>Characters</h1>
 					<table className="characters">
@@ -62,7 +28,7 @@ const Characters = ({ match }) => {
 							</tr>
 						</thead>
 						<tbody>
-							{data.map(ch => {
+							{characters.data.map(ch => {
 								return <Character key={ch.id} id={ch.id} name={ch.name} hp={ch.hp} dmg={ch.dmg} level={ch.level} type={ch.type} rarity={ch.rarity} />
 							})}
 						</tbody>
@@ -70,11 +36,7 @@ const Characters = ({ match }) => {
 				</div>;
 	}
 	
-	if(error) {
-		content = <p>{error}</p>;
-	}
-	
-	if(isLoading) {
+	if(characters.isLoading) {
 		content = <p>Loading...</p>;
 	}
 	

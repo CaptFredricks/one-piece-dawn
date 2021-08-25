@@ -1,0 +1,45 @@
+.account,
+.account-form {
+	background-color: #f2f2f2;
+	box-shadow: 1px 1px 3px 0px #000;
+	margin: 1em auto;
+	max-width: 450px;
+	padding: 0.75em;
+	width: 100%;
+}
+
+.account h1,
+.account-form h1 {
+	margin-top: 0;
+}
+
+.account dt {
+	font-weight: 700;
+}
+
+.account dt::after {
+	content: ':';
+}
+
+.account dd {
+	margin-left: 0;
+}
+
+.account dd:not(:last-of-type) {
+	margin-bottom: 0.5em;
+}
+
+.account dd img {
+	vertical-align: middle;
+}
+
+.account-form input:not(.button) {
+	font-size: 0.875rem;
+	line-height: 1.5;
+	margin-bottom: 1rem;
+	width: 100%;
+}
+
+.account-form .button {
+	margin-bottom: 0.75rem;
+}
