@@ -2,7 +2,8 @@
 .formation-form {
 	background-color: #f2f2f2;
 	box-shadow: 1px 1px 3px 0px #000;
-	margin: 1em 0;
+	margin: 1em auto;
+	max-width: 600px;
 	padding: 0.75em;
 	width: 100%;
 }
@@ -23,4 +24,8 @@
 
 .formation-form select {
 	margin-left: 0.5em;
+}
+
+.formation-form .button {
+	margin-top: 1em;
 }

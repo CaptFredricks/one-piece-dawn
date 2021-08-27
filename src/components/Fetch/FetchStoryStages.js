@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-const FetchStory = (current_stage, story_stages) => {
+const FetchStory = (current_stage) => {
 	const has_fetched = useRef(false);
 	const [story, setStory] = useState({data: [], isLoading: false});
 	
@@ -8,7 +8,7 @@ const FetchStory = (current_stage, story_stages) => {
 		setStory({data: story.data, isLoading: true});
 		
 		try {
-			const response = await fetch(`/api/story/${current_stage}/`);
+			const response = await fetch('/api/story/stages/');
 			
 			if(!response.ok) {
 				throw new Error('Something went wrong!');
@@ -20,14 +20,14 @@ const FetchStory = (current_stage, story_stages) => {
 		} catch(err) {
 			console.log(err);
 		}
-	}, [story.data, current_stage]);
+	}, [story.data]);
 	
 	useEffect(() => {
-		if(!has_fetched.current && current_stage !== undefined && current_stage <= story_stages) {
+		if(!has_fetched.current) {
 			fetchData();
 			has_fetched.current = true;
 		}
-	}, [fetchData, current_stage, story_stages]);
+	}, [fetchData]);
 	
 	return story;
 };

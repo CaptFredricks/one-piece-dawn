@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
 const FetchCharacters = () => {
-	const hasFetched = useRef(false);
+	const has_fetched = useRef(false);
 	const [characters, setCharacters] = useState({data: [], isLoading: false});
 	
 	const fetchData = useCallback(async () => {
@@ -14,9 +14,9 @@ const FetchCharacters = () => {
 				throw new Error('Something went wrong!');
 			}
 			
-			const dataIn = await response.json();
+			const data_in = await response.json();
 			
-			const transformedData = dataIn.results.map(row => {
+			const transformed_data = data_in.results.map(row => {
 				return {
 					id: row.id,
 					name: row.name,
@@ -25,20 +25,23 @@ const FetchCharacters = () => {
 					level: row.level,
 					type: row.type,
 					rarity: row.rarity,
+					unlock: row._unlock,
+					cost: row.cost,
+					is_purchased: row.is_purchased,
 					description: row.description
 				};
 			});
 			
-			setCharacters({data: transformedData, isLoading: false});
+			setCharacters({data: transformed_data, isLoading: false});
 		} catch(err) {
 			console.log(err.message);
 		}
 	}, [characters.data]);
 	
 	useEffect(() => {
-		if(!hasFetched.current) {
+		if(!has_fetched.current) {
 			fetchData();
-			hasFetched.current = true;
+			has_fetched.current = true;
 		}
 	}, [fetchData]);
 	

@@ -62,10 +62,12 @@ const PlayStage = (player_data, npc_data) => {
 		// Play through each turn
 		for(let turn = 0; turn < turns; turn++) {
 			if(npc.length === 0) {
-				output[turn] = ('Player wins!');
+				output[turn] = 'Player wins!';
+				output[turn + 1] = 'WINNER;player';
 				break;
 			} else if(player.length === 0) {
-				output[turn] = ('NPC wins!');
+				output[turn] = 'NPC wins!';
+				output[turn + 1] = 'WINNER;npc';
 				break;
 			}
 			

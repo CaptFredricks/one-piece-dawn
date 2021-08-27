@@ -1,12 +1,15 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import FetchAccount from '../Fetch/FetchAccount';
+import FetchStoryStages from '../Fetch/FetchStoryStages';
 import FetchStory from '../Fetch/FetchStory';
 import FetchFormationPlayer from '../Fetch/FetchFormationPlayer';
 import FetchFormationNPC from '../Fetch/FetchFormationNPC';
 import PlayStage from './PlayStage';
 import FormationPlayer from './Formations/FormationPlayer';
 import FormationNPC from './Formations/FormationNPC';
+import StageAdvanceForm from './StageAdvanceForm';
+import StageRestartForm from './StageRestartForm';
 import StatusUpdates from './StatusUpdates';
 import './Story.css';
 
@@ -14,8 +17,11 @@ const Story = () => {
 	// Fetch account data
 	const account = FetchAccount();
 	
+	// Fetch story stages data
+	const story_stages = FetchStoryStages();
+	
 	// Fetch story data
-	const story = FetchStory(account.data.current_stage);
+	const story = FetchStory(account.data.current_stage, story_stages.data);
 	
 	// Fetch the player's formation data
 	const formation_player = FetchFormationPlayer();
@@ -29,7 +35,14 @@ const Story = () => {
 	
 	const playContent = useCallback(() => {
 		const stage = PlayStage(formation_player.data, formation_npc.data);
-		console.log(stage);
+		let winner;
+		
+		stage.forEach((turn, idx) => {
+			if(turn.indexOf('WINNER') > -1) {
+				winner = turn[1];
+				stage.splice(idx, 1);
+			}
+		});
 		
 		setContent(
 			<div className="content">
@@ -44,6 +57,7 @@ const Story = () => {
 					</dl>
 					<FormationPlayer data={formation_player.data} />
 					<FormationNPC data={formation_npc.data} stage={account.data.current_stage} />
+					{winner === 'player' ? <StageAdvanceForm data={story.data} /> : <StageRestartForm />}
 					<StatusUpdates output={stage} />
 				</div>
 			</div>
@@ -55,13 +69,14 @@ const Story = () => {
 			<div className="content">
 				<div className="modal">
 					<h1>Stage {account.data.current_stage}</h1>
+					<h2>{story.data.stage}</h2>
 					<button className="button" onClick={playContent}>Start</button>
 				</div>
 			</div>
 		);
-	}, [account.data.current_stage, playContent]);
+	}, [account.data, story.data, playContent]);
 	
-	if(account.isLoading || story.isLoading || formation_player.isLoading || formation_npc.isLoading) {
+	if(account.isLoading || story_stages.isLoading || story.isLoading || formation_player.isLoading || formation_npc.isLoading) {
 		isLoading = true;
 	}
 	

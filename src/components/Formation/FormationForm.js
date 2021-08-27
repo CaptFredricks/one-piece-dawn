@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
 
-let form = null;
-let chars = null;
-
 class FormationForm extends Component {
 	constructor(props) {
 		super(props);
 		
-		form = props.form;
-		chars = props.chars;
+		this.form = props.form;
+		this.chars = props.chars;
 		
 		this.state = {
-			slot_1: form.slot_1,
-			slot_2: form.slot_2,
-			slot_3: form.slot_3,
-			slot_4: form.slot_4,
-			slot_5: form.slot_5
+			slot_1: this.form.slot_1,
+			slot_2: this.form.slot_2,
+			slot_3: this.form.slot_3,
+			slot_4: this.form.slot_4,
+			slot_5: this.form.slot_5
 		}
 	}
 	
@@ -41,8 +38,12 @@ class FormationForm extends Component {
 						e => this.setState({slot_1: parseInt(e.target.value, 10)})
 					}>
 						<option value="0">(none)</option>
-						{chars.map(({ id, name }, idx) => {
-							return <option key={idx} value={id}>{name}</option>
+						{this.chars.map(({ id, name }, idx) => {
+							if(id === this.state.slot_2 || id === this.state.slot_3 || id === this.state.slot_4 || id === this.state.slot_5) {
+								return null;
+							} else {
+								return <option key={idx} value={id}>{name}</option>;
+							}
 						})}
 					</select>
 				</label>
@@ -51,8 +52,12 @@ class FormationForm extends Component {
 						e => this.setState({slot_2: parseInt(e.target.value, 10)})
 					}>
 						<option value="0">(none)</option>
-						{chars.map(({ id, name }, idx) => {
-							return <option key={idx} value={id}>{name}</option>
+						{this.chars.map(({ id, name }, idx) => {
+							if(id === this.state.slot_1 || id === this.state.slot_3 || id === this.state.slot_4 || id === this.state.slot_5) {
+								return null;
+							} else {
+								return <option key={idx} value={id}>{name}</option>;
+							}
 						})}
 					</select>
 				</label>
@@ -61,8 +66,12 @@ class FormationForm extends Component {
 						e => this.setState({slot_3: parseInt(e.target.value, 10)})
 					}>
 						<option value="0">(none)</option>
-						{chars.map(({ id, name }, idx) => {
-							return <option key={idx} value={id}>{name}</option>
+						{this.chars.map(({ id, name }, idx) => {
+							if(id === this.state.slot_1 || id === this.state.slot_2 || id === this.state.slot_4 || id === this.state.slot_5) {
+								return null;
+							} else {
+								return <option key={idx} value={id}>{name}</option>;
+							}
 						})}
 					</select>
 				</label>
@@ -71,8 +80,12 @@ class FormationForm extends Component {
 						e => this.setState({slot_4: parseInt(e.target.value, 10)})
 					}>
 						<option value="0">(none)</option>
-						{chars.map(({ id, name }, idx) => {
-							return <option key={idx} value={id}>{name}</option>
+						{this.chars.map(({ id, name }, idx) => {
+							if(id === this.state.slot_1 || id === this.state.slot_2 || id === this.state.slot_3 || id === this.state.slot_5) {
+								return null;
+							} else {
+								return <option key={idx} value={id}>{name}</option>;
+							}
 						})}
 					</select>
 				</label>
@@ -81,12 +94,16 @@ class FormationForm extends Component {
 						e => this.setState({slot_5: parseInt(e.target.value, 10)})
 					}>
 						<option value="0">(none)</option>
-						{chars.map(({ id, name }, idx) => {
-							return <option key={idx} value={id}>{name}</option>
+						{this.chars.map(({ id, name }, idx) => {
+							if(id === this.state.slot_1 || id === this.state.slot_2 || id === this.state.slot_3 || id === this.state.slot_4) {
+								return null;
+							} else {
+								return <option key={idx} value={id}>{name}</option>;
+							}
 						})}
 					</select>
 				</label>
-				<input type="submit" name="submit_form" />
+				<input type="submit" className="button" name="submit_form" />
 			</form>
 		);
 	}

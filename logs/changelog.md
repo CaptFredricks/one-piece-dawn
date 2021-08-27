@@ -4,7 +4,38 @@
 *Versions: X.x.x (major releases), x.X.x (standard releases), x.x.X (minor releases/bug fixes)*<br>
 *Other: [a] - alpha, [b] - beta*
 
-## Version 0.3.0 (2021-08-22)
+## Version 0.4.0 (2021-08-25)
+
+- Characters that aren't unlocked can no longer be added to the player's formation
+- Players can now see which characters they have unlocked
+- A character can now only be placed in a single slot on the player's formation
+- Characters can now be purchased via their character cards
+- The story can now be advanced upon successfully winning a stage
+
+**Modified files:**
+- src/App.css (M)
+- src/App.js
+- src/components/Account/Account.js
+- src/components/Characters/Character.js
+- src/components/Characters/CharacterCard.js
+- src/components/Characters/CharacterPurchase.js (N)
+- src/components/Characters/Characters.css
+- src/components/Characters/Characters.js
+- src/components/Characters/PurchaseForm.js (N)
+- src/components/Fetch/FetchCharacters.js
+- src/components/Fetch/FetchStory.js
+- src/components/Fetch/FetchStoryStages.js (N)
+- src/components/Formation/EditFormation.js
+- src/components/Formation/Formation.css
+- src/components/Formation/Formation.js
+- src/components/Formation/FormationForm.js
+- src/components/Story/PlayStage.js
+- src/components/Story/StageAdvanceForm.js (N)
+- src/components/Story/StageRestartForm.js (N)
+- src/components/Story/Story.css
+- src/components/Story/Story.js
+
+## Version 0.3.0 (2021-08-24)
 
 - Added account management
 - Code cleanup

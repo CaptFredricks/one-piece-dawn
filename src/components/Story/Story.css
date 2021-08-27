@@ -10,7 +10,15 @@
 }
 
 .modal h1 {
+	margin: 0;
+}
+
+.modal h2 {
 	margin-top: 0;
+}
+
+.modal .button:last-child {
+	margin-bottom: 1em;
 }
 
 /* Stage */
@@ -58,6 +66,10 @@
 .stage li {
 	box-shadow: 0 1px 1px 0 #000;
 	line-height: 2.5;
+}
+
+.stage .button {
+	margin-bottom: 1em;
 }
 
 .stage .status-updates {

@@ -1,10 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import FetchAccount from '../Fetch/FetchAccount';
 import FetchFormation from '../Fetch/FetchFormation';
 import FetchCharacters from '../Fetch/FetchCharacters';
 import FormationForm from './FormationForm';
 
 const EditFormation = ({ match }) => {
+	// Fetch account data
+	const account = FetchAccount();
+	
 	// Fetch formation data
 	const formation = FetchFormation();
 	
@@ -13,13 +17,19 @@ const EditFormation = ({ match }) => {
 	
 	let content = <p>No characters found!</p>;
 	
-	if(Object.keys(formation.data).length > 0 && Object.keys(characters.data).length > 0) {
+	if(Object.keys(account.data).length > 0 && Object.keys(formation.data).length > 0 && characters.data.length > 0) {
+		for(let i = characters.data.length - 1; i >= 0; i--) {
+			if(characters.data[i].unlock >= account.data.current_stage || (characters.data[i].cost > 0 && !characters.data[i].is_purchased)) {
+				characters.data.splice(i, 1);
+			}
+		}
+		
 		content = <div className="content">
 					<FormationForm form={formation.data} chars={characters.data} />
 				</div>;
 	}
 	
-	if(formation.isLoading || characters.isLoading) {
+	if(account.isLoading || formation.isLoading || characters.isLoading) {
 		content = <p>Loading...</p>;
 	}
 	
@@ -31,6 +41,6 @@ const EditFormation = ({ match }) => {
 			{content}
 		</main>
 	);
-};
+}
 
 export default EditFormation;

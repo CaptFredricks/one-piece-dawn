@@ -12,6 +12,10 @@
 	display: none;
 }
 
+form .button:last-child {
+	margin-bottom: 1em;
+}
+
 #menu {
 	display: flex;
 	  align-items: center;

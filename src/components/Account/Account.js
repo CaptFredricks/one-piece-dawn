@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link, Route, Switch } from 'react-router-dom';
 import FetchAccount from '../Fetch/FetchAccount';
 import EditAccount from './EditAccount';
 import Belly from '../../assets/Belly.png';
@@ -24,7 +24,7 @@ const Account = () => {
 							<dd>{account.data.current_stage}</dd>
 							<dt>Belly</dt>
 							<dd>
-								<span><img src={Belly} alt="Belly" />{account.data.belly}</span>
+								<span><img src={Belly} title="Belly" alt="Belly" />{account.data.belly}</span>
 							</dd>
 							<dt>Level Points</dt>
 							<dd>{account.data.lvl_points}</dd>
@@ -39,16 +39,18 @@ const Account = () => {
 	
 	return (
 		<div className="wrapper">
-			<Route exact={true} path={path}>
-				<main>
-					<div className="breadcrumb">
-						<Link to="/">Menu</Link> &rsaquo; Account
-					</div>
-					{content}
-					<Link to={`${path}edit/`} className="button">Edit Account</Link>
-				</main>
-			</Route>
-			<Route path={`${path}edit/`} component={EditAccount} />
+			<Switch>
+				<Route exact={true} path={path}>
+					<main>
+						<div className="breadcrumb">
+							<Link to="/">Menu</Link> &rsaquo; Account
+						</div>
+						{content}
+						<Link to={`${path}edit/`} className="button">Edit Account</Link>
+					</main>
+				</Route>
+				<Route path={`${path}edit/`} component={EditAccount} />
+			</Switch>
 		</div>
 	);
 };

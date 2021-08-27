@@ -6,6 +6,10 @@
 	--rarity-legendary: #ef6f6f;
 }
 
+dd img {
+	vertical-align: middle;
+}
+
 .characters,
 .card {
 	background-color: #f2f2f2;
@@ -51,11 +55,29 @@
 	margin: 1em auto;
 }
 
+.card dt {
+	cursor: help;
+}
+
 .card .name {
 	font-size: 1.5em;
 	margin: 0;
 	padding: 0.25em 0 0.375em;
 	position: relative;
+}
+
+.card .unlock {
+	color: #800;
+	cursor: help;
+	font-size: 0.75rem;
+	line-height: 1;
+	position: absolute;
+	  /*top: 0.5rem;*/
+	  left: 0.25rem;
+}
+
+.card .unlock.is-unlocked {
+	color: #080;
 }
 
 .card .level {
@@ -73,21 +95,25 @@
 	width: 2rem;
 }
 
-.card .stats {
+.card .stats,
+.card .cost {
 	display: flex;
 	  justify-content: center;
 }
 
-.card .stats dt {
+.card .stats dt,
+.card .cost dt {
 	font-weight: 700;
 	margin-right: 0.375em;
 }
 
-.card .stats dt::after {
+.card .stats dt::after,
+.card .cost dt::after {
 	content: ': ';
 }
 
-.card .stats dd {
+.card .stats dd,
+.card .cost dd {
 	margin-left: 0;
 }
 
@@ -112,4 +138,46 @@
 	flex-basis: 33.33%;
 	font-weight: 700;
 	padding: 1em 0.5em;
+}
+
+/* Purchase form */
+
+.purchase-form {
+	background-color: #f2f2f2;
+	box-shadow: 1px 1px 3px 0px #000;
+	margin: 1em auto;
+	max-width: 600px;
+	padding: 0.75em;
+	width: 100%;
+}
+
+.purchase-form h1 {
+	margin-top: 0;
+}
+
+.purchase-form .details {
+	display: flex;
+	  flex-wrap: wrap;
+}
+
+.purchase-form .details dt {
+	font-weight: 700;
+	padding-right: 0.375em;
+	text-align: right;
+	width: 50%;
+}
+
+.purchase-form .details dt::after {
+	content: ': ';
+}
+
+.purchase-form .details dd {
+	margin-left: 0;
+	text-align: left;
+	width: 50%;
+}
+
+.purchase-form .details dt:not(:last-of-type),
+.purchase-form .details dd:not(:last-of-type) {
+	margin-bottom: 1em;
 }

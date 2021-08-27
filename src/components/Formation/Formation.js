@@ -16,7 +16,7 @@ const Formation = ({ match }) => {
 	
 	let content = <p>No formations found!</p>;
 	
-	if(Object.keys(formation.data).length > 0) {
+	if(Object.keys(formation.data).length > 0 && characters.data.length > 0) {
 		const form = [formation.data.slot_1, formation.data.slot_2, formation.data.slot_3, formation.data.slot_4, formation.data.slot_5];
 		
 		form.forEach((fm, idx) => {
@@ -45,7 +45,7 @@ const Formation = ({ match }) => {
 				</div>;
 	}
 	
-	if(formation.isLoading) {
+	if(formation.isLoading || characters.isLoading) {
 		content = <p>Loading...</p>;
 	}
 	
