@@ -4,6 +4,42 @@
 *Versions: X.x.x (major releases), x.X.x (standard releases), x.x.X (minor releases/bug fixes)*<br>
 *Other: [a] - alpha, [b] - beta*
 
+## Version 0.5.0 (2021-08-30)
+
+- Added images to the characters table
+- Completely redesigned character cards
+- Characters can now be leveled up
+- Renamed "level points" to "medallions"
+- Replaced rarity with tiers
+- Formations will no longer be stored in the `formation` table of the database
+  - The player's formation will be stored in `account`
+  - The NPC's formation (for each stage) will be stored in `stages`
+
+**Modified files:**
+- public/images/characters/Alvida.png (N)
+- public/images/characters/Higuma.png (N)
+- public/images/characters/Koby.png (N)
+- public/images/characters/Monkey D. Luffy.png (N)
+- src/App.css (M)
+- src/assets/Default.png (N)
+- src/assets/font-awesome-rules.min.css (N)
+- src/assets/font-awesome.min.css (N)
+- src/assets/fonts/fa-brands.ttf (N)
+- src/assets/fonts/fa-regular.ttf (N)
+- src/assets/fonts/fa-solid.ttf (N)
+- src/components/Account/Account.js (M)
+- src/components/Characters/Character.js
+- src/components/Characters/CharacterCard.js
+- src/components/Characters/CharacterLevelUpForm.js (N)
+- src/components/Characters/Characters.css
+- src/components/Characters/Characters.js
+- src/components/Fetch/FetchCharacters.js (M)
+- src/components/Fetch/FetchFormationNPC.js (M)
+- src/components/Fetch/FetchFormationPlayer.js (M)
+- src/components/Story/PlayStage.js
+- src/components/Story/StageAdvanceForm.js (M)
+- src/components/Story/Story.js (M)
+
 ## Version 0.4.0 (2021-08-25)
 
 - Characters that aren't unlocked can no longer be added to the player's formation

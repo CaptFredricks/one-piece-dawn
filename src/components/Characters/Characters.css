@@ -1,13 +1,37 @@
 :root {
-	--rarity-common: #efaf6f;
-	--rarity-uncommon: #afef6f;
-	--rarity-rare: #6fafef;
-	--rarity-fabled: #ef6faf;
-	--rarity-legendary: #ef6f6f;
+	--rarity: #fff;
+	--rarity--common: #c4fc8c;
+	--rarity--uncommon: #a8d4fc;
+	--rarity--rare: #e4a8ff;
+	--rarity--fabled: #fcace4;
+	--rarity--legendary: #f4e494;
+	
+	--image--small: 50px;
+	--image--large: 250px;
 }
 
 dd img {
 	vertical-align: middle;
+}
+
+.common {
+	--rarity: var(--rarity--common);
+}
+
+.uncommon {
+	--rarity: var(--rarity--uncommon);
+}
+
+.rare {
+	--rarity: var(--rarity--rare);
+}
+
+.fabled {
+	--rarity: var(--rarity--fabled);
+}
+
+.legendary {
+	--rarity: var(--rarity--legendary);
 }
 
 .characters,
@@ -23,121 +47,273 @@ dd img {
 	height: 2em;
 }
 
-.character.common:hover,
-.card.common .name {
-	background-color: var(--rarity-common);
+.character:hover {
+	background-color: #fff;
 }
 
-.character.uncommon:hover,
-.card.uncommon .name {
-	background-color: var(--rarity-uncommon);
+/** Columns **/
+
+.character .col-name {
+	text-align: left;
+	width: 20%;
 }
 
-.character.rare:hover,
-.card.rare .name {
-	background-color: var(--rarity-rare);
+.character .col-hp,
+.character .col-dmg,
+.character .col-level,
+.character .col-unlocked,
+.character .col-is-purchased {
+	width: 10%;
 }
 
-.character.fabled:hover,
-.card.fabled .name {
-	background-color: var(--rarity-fabled);
+.character .col-tier,
+.character .col-type {
+	width: 15%;
 }
 
-.character.legendary:hover,
-.card.legendary .name {
-	background-color: var(--rarity-legendary);
+.character .col-name img {
+	line-height: var(--image--small);
+	margin-right: 0.5em;
+	max-height: var(--image--small);
+	max-width: var(--image--small);
+	overflow: hidden;
+	position: relative;
+	vertical-align: middle;
+}
+
+.character .col-name img::before {
+	background-image: url('../../assets/Default.png');
+	background-size: 100%;
+	content: '';
+	height: 100%;
+	position: absolute;
+	  top: 0;
+	  left: 0;
+	width: 100%;
+}
+
+.character .col-hp span,
+.character .col-dmg span {
+	cursor: help;
+}
+
+.character .col-tier i {
+	color: #ffd700;
+	text-shadow: 1px 1px 4px #000;
 }
 
 /* Character cards */
 
 .card {
-	max-width: 600px;
-	margin: 1em auto;
+	border-radius: 8px;
+	display: flex;
+	padding: 0;
 }
 
-.card dt {
-	cursor: help;
-}
+/** Panels **/
 
-.card .name {
-	font-size: 1.5em;
-	margin: 0;
-	padding: 0.25em 0 0.375em;
+.card .left-panel {
+	padding: 1em;
 	position: relative;
+	text-align: left;
+	width: 22%;
+}
+
+.card .center-panel {
+	background-color: #d2d2d2;
+	padding: 3em 2em;
+	position: relative;
+	width: 56%;
+}
+
+.card .right-panel {
+	padding: 1em;
+	position: relative;
+	text-align: right;
+	width: 22%;
+}
+
+/** Level & unlock **/
+
+.card .top {
+	display: flex;
+	  align-items: center;
+	margin-bottom: 1em;
+}
+
+.card .level-wrap {
+	margin: 0 0.5rem;
+	position: relative;
+}
+
+.card .level-wrap svg {
+	height: 50px;
+	width: 50px;
+}
+
+.card .level-wrap path,
+.card .level-wrap circle {
+	fill: #ffd700;
+}
+
+.card .level {
+	cursor: help;
+	display: inline-flex;
+	  align-items: center;
+	  justify-content: center;
+	font-size: 1.25rem;
+	font-weight: 700;
+	height: 47px;
+	line-height: 1;
+	position: absolute;
+	  top: 3px;
+	  left: 0;
+	width: 50px;
 }
 
 .card .unlock {
 	color: #800;
 	cursor: help;
-	font-size: 0.75rem;
-	line-height: 1;
-	position: absolute;
-	  /*top: 0.5rem;*/
-	  left: 0.25rem;
+	font-size: 2rem;
+	margin: 0 0.5rem;
 }
 
 .card .unlock.is-unlocked {
 	color: #080;
 }
 
-.card .level {
-	background-color: #ffd700;
-	border: 2px solid #802e02;
-	border-radius: 50%;
-	color: #000;
-	cursor: help;
-	font-size: 1.25rem;
-	height: 2rem;
-	line-height: 1.65rem;
-	position: absolute;
-	  top: 0.5rem;
-	  right: 0.25rem;
-	width: 2rem;
+.card .level-up-form .button {
+	margin-bottom: 0;
 }
 
-.card .stats,
-.card .cost {
-	display: flex;
-	  justify-content: center;
-}
+/** Stats **/
 
-.card .stats dt,
-.card .cost dt {
-	font-weight: 700;
-	margin-right: 0.375em;
-}
-
-.card .stats dt::after,
-.card .cost dt::after {
-	content: ': ';
-}
-
-.card .stats dd,
-.card .cost dd {
-	margin-left: 0;
-}
-
-.card .stats dd:not(:last-child) {
-	margin-right: 1.5em;
-}
-
-.card .abilities {
-	background-color: #fff;
-	box-shadow: 0 0 2px 0px #000 inset;
-	display: flex;
-	  align-items: center;
-	  flex-wrap: wrap;
-	  justify-content: center;
+.card .stats {
 	list-style: none;
 	padding: 0;
 }
 
-.card .abilities li {
-	color: #3a3a3a;
+.card .stats li {
+	line-height: 2;
+}
+
+.card .stats strong {
 	cursor: help;
-	flex-basis: 33.33%;
+}
+
+.card .stats strong::after {
+	content: ': ';
+}
+
+.card .stats img {
+	vertical-align: middle;
+}
+
+.card .stats .button {
+	margin-top: 1em;
+}
+
+/** Abilities **/
+
+.card .abilities {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.card .abilities li {
+	background-color: #fff;
+	border-radius: 8px;
+	box-shadow: 1px 1px 3px 0px #000;
+	cursor: help;
 	font-weight: 700;
+	margin: 1em 0;
 	padding: 1em 0.5em;
+}
+
+.card .abilities li:hover {
+	background-color: #dfdfdf;
+}
+
+/** Image, name, & description **/
+
+/*
+.character .col-name img {
+	line-height: 50px;
+	margin-right: 0.5em;
+	max-height: 50px;
+	max-width: 50px;
+	overflow: hidden;
+	position: relative;
+	vertical-align: middle;
+}
+
+.character .col-name img::before {
+	background-image: url('../../assets/Default.png');
+	background-size: 100%;
+	content: '';
+	height: 100%;
+	position: absolute;
+	  top: 0;
+	  left: 0;
+	width: 100%;
+}
+*/
+
+.card .image {
+	border: 3px solid #f00;
+	border-radius: 8px;
+	display: block;
+	line-height: calc(var(--image--large) + 6px);
+	margin: 0 auto;
+	max-height: calc(var(--image--large) + 6px);
+	max-width: calc(var(--image--large) + 6px);
+	overflow: hidden;
+	position: relative;
+}
+
+.card .image::before {
+	background-image: url('../../assets/Default.png');
+	background-size: 100%;
+	content: '';
+	height: 100%;
+	position: absolute;
+	  top: 0;
+	  left: 0;
+	width: 100%;
+}
+
+.card .name-wrap {
+	background-color: #badcfb;
+	display: flex;
+	  align-items: center;
+	  justify-content: center;
+	font-size: 1.75em;
+	padding: 0.5em 0 0.625em;
+	position: relative;
+}
+
+.card .tier-wrap {
+	position: absolute;
+	  right: 0;
+	  bottom: -0.5em;
+	  left: 0;
+}
+
+.card .tier {
+	cursor: help;
+}
+
+.card .tier i {
+	color: #ffd700;
+	font-size: 1.5rem;
+	text-shadow: 1px 1px 4px #000;
+}
+
+.card .description {
+	line-height: 1.7;
+	margin: 2em auto;
+	max-width: 500px;
 }
 
 /* Purchase form */

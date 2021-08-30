@@ -8,7 +8,7 @@ class StageAdvanceForm extends Component {
 		
 		this.state = {
 			belly: this.data.belly_reward,
-			lvl_points: this.data.lvl_point_reward
+			medallions: this.data.lvl_point_reward
 		}
 	}
 	

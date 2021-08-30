@@ -52,7 +52,7 @@ const Story = () => {
 					<dl>
 						<dt>Belly Reward</dt>
 						<dd>{story.data.belly_reward}</dd>
-						<dt>Level Point Reward</dt>
+						<dt>Medallion Reward</dt>
 						<dd>{story.data.lvl_point_reward}</dd>
 					</dl>
 					<FormationPlayer data={formation_player.data} />

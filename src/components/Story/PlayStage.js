@@ -3,16 +3,30 @@ const PlayStage = (player_data, npc_data) => {
 	const npc = [...npc_data];
 	const turns = 10;
 	const output = [], output_stage = [];
+	const player_max_hp = [];
+	const npc_max_hp = [];
+	const player_abils_cd = [];
+	const npc_abils_cd = [];
 	
+	// Generate a random number
 	const getRandom = (max) => {
 		return Math.floor(Math.random() * max);
 	}
 	
-	const player_max_hp = [];
-	const npc_max_hp = [];
+	// Calculate a character's attack value
+	const calcAtk = (lvl, base_dmg, atk_dmg) => {
+		return Math.pow(lvl, 2) + base_dmg + atk_dmg;
+	}
 	
-	const player_abils_cd = [];
-	const npc_abils_cd = [];
+	// Calculate a character's defense value
+	const calcDef = (lvl, def) => {
+		return Math.pow(lvl, 2) + def;
+	}
+	
+	// Calculate a character's heal value
+	const calcHeal = (lvl, heal) => {
+		return Math.pow(lvl, 2) + heal;
+	}
 	
 	if(player.length > 0) {
 		for(let i = 0; i < player_data.length; i++) {
@@ -22,13 +36,8 @@ const PlayStage = (player_data, npc_data) => {
 			player_abils_cd[i] = [];
 			
 			for(let j = 0; j < player_data[i].abilities.length; j++) {
-				//if(player_data[i].abilities[j] !== undefined) {
-					// Calculate the cooldowns for each character's abilities
-					//player_abils_cd[i][j] = player_data[i].abilities[j].cooldown;
-				//}
-				
+				// Set the player characters' cooldowns to zero
 				player_abils_cd[i][j] = 0;
-				//player[i].abilities[j].cooldown = 0;
 			}
 		}
 	}
@@ -41,14 +50,8 @@ const PlayStage = (player_data, npc_data) => {
 			npc_abils_cd[i] = [];
 			
 			for(let j = 0; j < npc_data[i].abilities.length; j++) {
-				//if(npc_data[i].abilities[j] !== undefined) {
-					// Calculate the cooldowns for each character's abilities
-					//npc_abils_cd[i][j] = npc_data[i].abilities[j].cooldown;
-				//}
-				
+				// Set the NPC characters' cooldowns to zero
 				npc_abils_cd[i][j] = 0;
-				//npc[i].abilities[j].cooldown = 0;
-				//console.log(npc[i].abilities[j]);
 			}
 		}
 	}
@@ -71,11 +74,11 @@ const PlayStage = (player_data, npc_data) => {
 				break;
 			}
 			
-			output[turn] = ('Turn ' + (turn + 1) + ':;');
+			output[turn] = ('Turn ' + (turn + 1) + '/' + turns + ':;');
 			
 			// The player's turn
 			player.forEach((ch, i) => {
-				let rand, dmg, def, heal;
+				let rand, atk, def, heal;
 				let played = false;
 				
 				// Loop through the character's abilities
@@ -89,8 +92,8 @@ const PlayStage = (player_data, npc_data) => {
 							
 							// If the ability is an attack:
 							if(ch.abilities[j].attack > 0) {
-								// Calculate the damage of the attack
-								dmg = Math.pow(ch.level, 2) + ch.dmg + ch.abilities[j].attack;
+								// Calculate the attack
+								atk = calcAtk(ch.level, ch.dmg, ch.abilities[j].attack);
 								
 								let defense;
 								
@@ -101,12 +104,12 @@ const PlayStage = (player_data, npc_data) => {
 										// Ensure the ability isn't on cooldown
 										if(npc_abils_cd[rand][k] <= 0) {
 											// Calculate the defense
-											def = npc[rand].abilities[k].defense;
+											def = calcDef(1, npc[rand].abilities[k].defense);
 											
-											if(def > dmg)
-												dmg = 0;
+											if(def > atk)
+												atk = 0;
 											else
-												dmg -= def;
+												atk -= def;
 											
 											defense = (npc[rand].name + ' defends with ' + npc[rand].abilities[k].name + ', negating ' + def + ' points of damage.;');
 											
@@ -118,9 +121,9 @@ const PlayStage = (player_data, npc_data) => {
 								}
 								
 								// Adjust the opponent's HP
-								npc[rand].hp -= dmg;
+								npc[rand].hp -= atk;
 								
-								output[turn] += (ch.name + ' attacks ' + npc[rand].name + ' with ' + ch.abilities[j].name + ', dealing ' + dmg + ' points of damage.;');
+								output[turn] += (ch.name + ' attacks ' + npc[rand].name + ' with ' + ch.abilities[j].name + ', dealing ' + atk + ' points of damage.;');
 								if(defense !== undefined) output[turn] += defense;
 								
 								// Check whether the opponent has died
@@ -138,7 +141,7 @@ const PlayStage = (player_data, npc_data) => {
 							// If the ability is a heal:
 							if(ch.abilities[j].heal > 0) {
 								// Calculate the effectiveness of the heal
-								heal = Math.pow(ch.level, 2) + ch.abilities[j].heal;
+								heal = calcHeal(ch.level, ch.abilities[j].heal);
 								
 								if(ch.hp + heal > player_max_hp)
 									ch.hp = player_max_hp;
@@ -166,7 +169,7 @@ const PlayStage = (player_data, npc_data) => {
 			
 			// The NPC's turn
 			npc.forEach((ch, i) => {
-				let rand, dmg, def, heal;
+				let rand, atk, def, heal;
 				let played = false;
 				
 				// Loop through the character's abilities
@@ -175,14 +178,13 @@ const PlayStage = (player_data, npc_data) => {
 					if(!played && ch.abilities[j].defense === 0) {
 						// If the character's ability isn't on cooldown:
 						if(npc_abils_cd[i][j] <= 0) {
-							//ch.abilities[j].cooldown
 							// Fetch a random number
 							rand = getRandom(player.length);
 							
 							// If the ability is an attack:
 							if(ch.abilities[j].attack > 0) {
-								// Calculate the damage of the attack
-								dmg = Math.pow(ch.level, 2) + ch.dmg + ch.abilities[j].attack;
+								// Calculate the attack
+								atk = calcAtk(1, ch.dmg, ch.abilities[j].attack);
 								
 								let defense;
 								
@@ -192,14 +194,13 @@ const PlayStage = (player_data, npc_data) => {
 									if(player[rand].abilities[k].defense > 0 && player[rand].level >= player[rand].abilities[k].lvl_unlock) {
 										// Ensure the ability isn't on cooldown
 										if(npc_abils_cd[rand][k] <= 0) {
-											//player[rand].abilities[k].cooldown
 											// Calculate the defense
-											def = player[rand].abilities[k].defense;
+											def = calcDef(player[rand].level, player[rand].abilities[k].defense);
 											
-											if(def > dmg)
-												dmg = 0;
+											if(def > atk)
+												atk = 0;
 											else
-												dmg -= def;
+												atk -= def;
 											
 											defense = (player[rand].name + ' defends with ' + player[rand].abilities[k].name + ', negating ' + def + ' points of damage.;');
 											
@@ -211,9 +212,9 @@ const PlayStage = (player_data, npc_data) => {
 								}
 								
 								// Adjust the opponent's HP
-								player[rand].hp -= dmg;
+								player[rand].hp -= atk;
 								
-								output[turn] += (ch.name + ' attacks ' + player[rand].name + ' with ' + ch.abilities[j].name + ', dealing ' + dmg + ' points of damage.;');
+								output[turn] += (ch.name + ' attacks ' + player[rand].name + ' with ' + ch.abilities[j].name + ', dealing ' + atk + ' points of damage.;');
 								if(defense !== undefined) output[turn] += defense;
 								
 								// Check whether the opponent has died
@@ -231,7 +232,7 @@ const PlayStage = (player_data, npc_data) => {
 							// If the ability is a heal:
 							if(ch.abilities[j].heal > 0) {
 								// Calculate the effectiveness of the heal
-								heal = Math.pow(ch.level, 2) + ch.abilities[j].heal;
+								heal = calcHeal(1, ch.abilities[j].heal);
 								
 								if(ch.hp + heal > npc_max_hp)
 									ch.hp = npc_max_hp;

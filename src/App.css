@@ -49,6 +49,7 @@ form .button:last-child {
 	display: inline-block;
 	font-size: 0.95em;
 	font-weight: 700;
+	line-height: initial;
 	padding: 0.75em 1.5em;
 	text-decoration: none;
 }

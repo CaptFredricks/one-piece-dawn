@@ -27,16 +27,16 @@ const Characters = ({ match }) => {
 								<th>Name</th>
 								<th>HP</th>
 								<th>Dmg</th>
+								<th>Tier</th>
 								<th>Level</th>
 								<th>Type</th>
-								<th>Rarity</th>
 								<th>Unlocked?</th>
 								<th>Purchased?</th>
 							</tr>
 						</thead>
 						<tbody>
 							{characters.data.map(ch => {
-								return <Character key={ch.id} id={ch.id} name={ch.name} hp={ch.hp} dmg={ch.dmg} level={ch.level} type={ch.type} rarity={ch.rarity} unlock={ch.unlock} stage={account.data.current_stage} cost={ch.cost} is_purchased={ch.is_purchased} />
+								return <Character key={ch.id} id={ch.id} name={ch.name} hp={ch.hp} dmg={ch.dmg} tier={ch.tier} level={ch.level} type={ch.type} unlock={ch.unlock} stage={account.data.current_stage} cost={ch.cost} is_purchased={ch.is_purchased} />
 							})}
 						</tbody>
 					</table>

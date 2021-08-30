@@ -22,6 +22,7 @@ const FetchCharacters = () => {
 					name: row.name,
 					hp: row.hp,
 					dmg: row.dmg,
+					tier: row.tier,
 					level: row.level,
 					type: row.type,
 					rarity: row.rarity,

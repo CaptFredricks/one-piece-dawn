@@ -26,8 +26,8 @@ const Account = () => {
 							<dd>
 								<span><img src={Belly} title="Belly" alt="Belly" />{account.data.belly}</span>
 							</dd>
-							<dt>Level Points</dt>
-							<dd>{account.data.lvl_points}</dd>
+							<dt>Medallions</dt>
+							<dd>{account.data.medallions}</dd>
 						</dl>
 					</div>
 				</div>;
