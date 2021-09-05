@@ -21,12 +21,11 @@ const FetchFormationPlayer = () => {
 					id: row.id,
 					name: row.name,
 					hp: row.hp,
-					dmg: row.dmg,
+					attack: row.attack,
+					defense: row.defense,
 					tier: row.tier,
 					level: row.level,
 					type: row.type,
-					rarity: row.rarity,
-					description: row.description,
 					abilities: row.abilities
 				};
 			});

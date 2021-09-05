@@ -31,7 +31,7 @@ dd img {
 }
 
 .legendary {
-	--rarity: var(--rarity--legendary);
+	--rarity: var(--rarity--legendary); /* mythical */
 }
 
 .characters,
@@ -59,7 +59,8 @@ dd img {
 }
 
 .character .col-hp,
-.character .col-dmg,
+.character .col-attack,
+.character .col-defense,
 .character .col-level,
 .character .col-unlocked,
 .character .col-is-purchased {
@@ -68,7 +69,7 @@ dd img {
 
 .character .col-tier,
 .character .col-type {
-	width: 15%;
+	width: 10%;
 }
 
 .character .col-name img {
@@ -93,7 +94,8 @@ dd img {
 }
 
 .character .col-hp span,
-.character .col-dmg span {
+.character .col-attack span,
+.character .col-defense span {
 	cursor: help;
 }
 
@@ -235,30 +237,11 @@ dd img {
 	background-color: #dfdfdf;
 }
 
+.card .abilities .locked {
+	opacity: 0.35;
+}
+
 /** Image, name, & description **/
-
-/*
-.character .col-name img {
-	line-height: 50px;
-	margin-right: 0.5em;
-	max-height: 50px;
-	max-width: 50px;
-	overflow: hidden;
-	position: relative;
-	vertical-align: middle;
-}
-
-.character .col-name img::before {
-	background-image: url('../../assets/Default.png');
-	background-size: 100%;
-	content: '';
-	height: 100%;
-	position: absolute;
-	  top: 0;
-	  left: 0;
-	width: 100%;
-}
-*/
 
 .card .image {
 	border: 3px solid #f00;

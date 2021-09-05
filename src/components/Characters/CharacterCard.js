@@ -34,20 +34,25 @@ const CharacterCard = ({ match, data }) => {
 		// Tier 5: 36
 		const max_lvl = Math.pow((data.tier + 1), 2);
 		
-		const calcStat = (lvl, stat) => {
-			return Math.pow(lvl, 2) + stat;
+		const calcStat = (lvl, tier, val) => {
+			return Math.round(Math.pow(lvl, 2) / 5 * (tier / 5) + val);
 		}
 		
-		let cost = calcStat(data.level, 10);
-		let hp = calcStat(data.level, data.hp);
-		let dmg = calcStat(data.level, data.dmg);
+		const calcCost = (lvl, val) => {
+			return Math.pow(lvl, 2) + val;
+		}
+		
+		let hp = calcStat(data.level, data.tier, data.hp);
+		let attack = calcStat(data.level, data.tier, data.attack);
+		let defense = calcStat(data.level, data.tier, data.defense);
+		let cost = calcCost(data.level, 10);
 		
 		for(let i = 1; i <= data.tier; i++) {
 			tier[i] = <i key={i} className="fas fa-star"></i>;
 		}
 		
 		content = <div className="content">
-					<div className={`card ${data.rarity.toLowerCase()}`}>
+					<div className="card">
 						<div className="left-panel">
 							<div className="top">
 								<div className="level-wrap">
@@ -61,18 +66,18 @@ const CharacterCard = ({ match, data }) => {
 								</div>
 								<span className={'unlock' + (unlocked ? ' is-unlocked' : '')} title={unlocked ? 'Character unlocked!' : 'Character unlocks after Stage ' + data._unlock}><i className={unlocked ? 'fas fa-unlock' : 'fas fa-lock'}></i></span>
 							</div>
-							{data.level < max_lvl && (account.medallions > 0 && account.belly > cost) && unlocked && (data.cost === 0 || (data.cost > 0 && data.is_purchased)) ? <CharacterLevelUpForm ch_id={data.id} cost={cost} /> : null}
-							{data.level === max_lvl ? <p>Max level reached!</p> : null}
+							{unlocked && (data.cost === 0 || (data.cost > 0 && data.is_purchased)) && (account.medallions > 0 && account.belly > cost) ? (data.level < max_lvl ? <CharacterLevelUpForm ch_id={data.id} cost={cost} /> : <p>Max level reached!</p>) : null}
 							<ul className="stats">
 								<li><strong title="Hitpoints">HP</strong> <span>{hp}</span></li>
-								<li><strong title="Base damage">Dmg</strong> <span>{dmg}</span></li>
-								<li><strong title="Purchase cost">Cost</strong> <span>{data.cost > 0 ? <span><img src={Belly} title="Belly" alt="Belly" />{data.cost}</span> : 'Free'}</span></li>
+								<li><strong title="Base attack">ATK</strong> <span>{attack}</span></li>
+								<li><strong title="Base defense">DEF</strong> <span>{defense}</span></li>
+								<li><strong title="Purchase cost">COST</strong> <span>{data.cost > 0 ? <span><img src={Belly} title="Belly" alt="Belly" />{data.cost}</span> : 'Free'}</span></li>
 								<li>{unlocked && data.cost > 0 && !data.is_purchased ? <Link to={`/characters/purchase/${id}/`} className="button">Purchase</Link> : null}</li>
 							</ul>
 							<h2>Abilities</h2>
 							{abilities.isLoading ? <p>Loading...</p> : (abilities.data.length > 0 ? <ul className="abilities">
 								{abilities.data.map(ab => {
-									return <li key={ab.id} title={`${ab.name}
+									return <li key={ab.id} className={data.level < ab.lvl_unlock ? 'locked' : ''} title={`${ab.name}${data.level < ab.lvl_unlock ? ' \u2014 LOCKED' : ''}
   Attack: ${ab.attack} • Defense: ${ab.defense} • Heal: ${ab.heal}
   Unlocks at: Lv${ab.lvl_unlock}
 

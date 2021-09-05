@@ -14,24 +14,23 @@ const FetchFormationNPC = (stage) => {
 				throw new Error('Something went wrong!');
 			}
 			
-			const dataIn = await response.json();
+			const data_in = await response.json();
 			
-			const transformedData = dataIn.results.map(row => {
+			const transformed_data = data_in.results.map(row => {
 				return {
 					id: row.id,
 					name: row.name,
 					hp: row.hp,
-					dmg: row.dmg,
+					attack: row.attack,
+					defense: row.defense,
 					tier: row.tier,
 					level: row.level,
 					type: row.type,
-					rarity: row.rarity,
-					description: row.description,
 					abilities: row.abilities
 				};
 			});
 			
-			setFormation({data: transformedData, isLoading: false});
+			setFormation({data: transformed_data, isLoading: false});
 		} catch(err) {
 			console.log(err.message);
 		}

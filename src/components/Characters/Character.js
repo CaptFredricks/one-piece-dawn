@@ -4,12 +4,13 @@ const Character = (props) => {
 	const tier = [];
 	const unlocked = props.unlock < props.stage;
 	
-	const calcStat = (lvl, stat) => {
-		return Math.pow(lvl, 2) + stat;
+	const calcStat = (lvl, tier, val) => {
+		return Math.round(Math.pow(lvl, 2) / 5 * (tier / 5) + val);
 	}
 	
-	let hp = calcStat(props.level, props.hp);
-	let dmg = calcStat(props.level, props.dmg);
+	let hp = calcStat(props.level, props.tier, props.hp);
+	let attack = calcStat(props.level, props.tier, props.attack);
+	let defense = calcStat(props.level, props.tier, props.defense);
 	
 	for(let i = 1; i <= props.tier; i++) {
 		tier[i] = <i key={i} className="fas fa-star"></i>;
@@ -23,11 +24,15 @@ const Character = (props) => {
 			</td>
 			<td className="col-hp">
 				<span title={`Base: ${props.hp}
-Lvl. bonus: ${hp - props.hp}`}>{hp}</span>
+Bonus: ${hp - props.hp}`}>{hp}</span>
 			</td>
-			<td className="col-dmg">
-				<span title={`Base: ${props.dmg}
-Lvl. bonus: ${dmg - props.dmg}`}>{dmg}</span>
+			<td className="col-attack">
+				<span title={`Base: ${props.attack}
+Bonus: ${attack - props.attack}`}>{attack}</span>
+			</td>
+			<td className="col-defense">
+				<span title={`Base: ${props.defense}
+Bonus: ${defense - props.defense}`}>{defense}</span>
 			</td>
 			<td className="col-tier">{tier}</td>
 			<td className="col-level">{props.level}</td>

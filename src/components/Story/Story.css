@@ -25,7 +25,7 @@
 
 .stage {
 	background-color: #f2f2f2;
-	box-shadow: 1px 1px 3px 0px #000;
+	box-shadow: 1px 1px 3px 0 #000;
 	margin: 1em 0;
 	padding: 0.75em;
 	width: 100%;
@@ -56,6 +56,7 @@
 }
 
 .stage ul {
+	box-shadow: 0 1px 3px 0 #000;
 	display: inline-flex;
 	  flex-direction: column;
 	list-style: none;
@@ -63,14 +64,121 @@
 	width: 50%;
 }
 
+.stage ul:not(:last-of-type) {
+	border-right: 1px solid #000;
+}
+
 .stage li {
-	box-shadow: 0 1px 1px 0 #000;
-	line-height: 2.5;
+	height: 51px;
+	position: relative;
+}
+
+.stage li:not(:last-child) {
+	border-bottom: 1px solid #000;
+}
+
+.stage li .char {
+	background-color: #f7d8a1;
+	display: flex;
+	  align-items: center;
+	  justify-content: center;
+	height: 100%;
+}
+
+.stage li .char .image {
+	line-height: 50px;
+	margin-right: 0.5em;
+	max-height: 50px;
+	max-width: 50px;
+	overflow: hidden;
+	position: relative;
+}
+
+.stage li .char .image::before {
+	background-image: url('../../assets/Default.png');
+	background-size: 100%;
+	content: '';
+	height: 100%;
+	position: absolute;
+	  top: 0;
+	  left: 0;
+	width: 100%;
+}
+
+.stage li .char .name-wrap {
+	display: flex;
+	  flex-direction: column;
+}
+
+.stage li .char .hp {
+	background-color: #fff;
+	border: 1px solid #d2d2d2;
+	border-radius: 4px;
+	cursor: help;
+	height: 15px;
+	width: 120px;
+}
+
+.stage li .char .hp-bar {
+	background-color: #64d8ff;
+	border: 1px solid #42a4dd;
+	border-radius: 4px;
+	height: 100%;
+	transition: width 0.25s ease;
+	width: 100%;
+}
+
+.stage .formations {
+	position: relative;
+}
+
+.stage .versus {
+	background-color: #85b4d2;
+	border-radius: 50%;
+	box-shadow: 2px 2px 4px 0 #000;
+	color: #fff;
+	font-size: 1.5rem;
+	font-weight: 700;
+	height: 50px;
+	line-height: 1;
+	padding: 0.4em 0;
+	position: absolute;
+	  top: calc(102px + 1rem);
+	  left: calc(50% - 25px);
+	  z-index: 9;
+	text-shadow: 0 0 4px #000;
+	width: 50px;
+}
+
+/** Formation colors **/
+
+.stage .empty .char {
+	background-color: #e2e2e2;
+}
+
+.stage .attacker .char {
+	background-color: #2c64cc;
+	color: #fff;
+}
+
+.stage .defender .char {
+	background-color: #d01f0d;
+	color: #fff;
+}
+
+.stage .healer .char {
+	background-color: #21dc1e;
+}
+
+.stage .dead .char {
+	opacity: 0.35;
 }
 
 .stage .button {
 	margin-bottom: 1em;
 }
+
+/** Status updates **/
 
 .stage .status-updates {
 	background-color: #222;

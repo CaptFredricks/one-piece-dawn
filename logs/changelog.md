@@ -4,9 +4,60 @@
 *Versions: X.x.x (major releases), x.X.x (standard releases), x.x.X (minor releases/bug fixes)*<br>
 *Other: [a] - alpha, [b] - beta*
 
+## Version 0.6.0 (2021-09-04)
+
+- Code cleanup
+- Renamed `FetchStory.js` to `FetchStage.js` and `FetchStoryStages.js` to `FetchStagesCount.js`
+- Tweaked the formulas that calculate attack, defense, and heals
+- Added character images and HP bars to the stage formations
+- Stages are now much more dynamic; in addition to the status update bar at the bottom, both the player and NPC characters' HP and status now update in real time
+- Added images for the following characters:
+ - Mountain Bandit
+ - Heppoko
+ - Peppoko
+ - Helmeppo
+ - Rokkaku
+ - Ukkari
+ - Roronoa Zoro
+- Fixed a bug that occurred if either team's last character was killed before the opposing team's characters had finished their current turn
+- Added `todo.txt` to the `.gitignore`
+
+**Modified files:**
+- .gitignore (M)
+- public/images/characters/Helmeppo.png (N)
+- public/images/characters/Heppoko.png (N)
+- public/images/characters/Mountain Bandit.png (N)
+- public/images/characters/Peppoko.png (N)
+- public/images/characters/Rokkaku.png (N)
+- public/images/characters/Roronoa Zoro.png (N)
+- public/images/characters/Ukkari.png (N)
+- src/components/Characters/Character.js
+- src/components/Characters/CharacterCard.js
+- src/components/Characters/Characters.css
+- src/components/Characters/Characters.js
+- src/components/Fetch/FetchCharacters.js
+- src/components/Fetch/FetchFormationNPC.js
+- src/components/Fetch/FetchFormationPlayer.js
+- src/components/Fetch/FetchFormationStage.js
+- src/components/Fetch/FetchStage.js (R)
+- src/components/Fetch/FetchStagesCount.js (R)
+- src/components/Story/Formations/FormationNPC.js
+- src/components/Story/Formations/FormationPlayer.js
+- src/components/Story/PlayStage.js
+- src/components/Story/SetupStage.js (N)
+- src/components/Story/StageAdvanceForm.js (M)
+- src/components/Story/StatusUpdates.js
+- src/components/Story/Story.css
+- src/components/Story/Story.js
+
 ## Version 0.5.0 (2021-08-30)
 
 - Added images to the characters table
+- Added images for the following characters:
+  - Monkey D. Luffy
+  - Higuma
+  - Koby
+  - Alvida
 - Completely redesigned character cards
 - Characters can now be leveled up
 - Renamed "level points" to "medallions"

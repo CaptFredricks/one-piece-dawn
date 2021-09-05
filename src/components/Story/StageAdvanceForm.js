@@ -8,14 +8,14 @@ class StageAdvanceForm extends Component {
 		
 		this.state = {
 			belly: this.data.belly_reward,
-			medallions: this.data.lvl_point_reward
+			medallions: this.data.medallion_reward
 		}
 	}
 	
 	submitData = (e) => {
 		//e.preventDefault();
 		
-		fetch('/api/story/advance/', {
+		fetch('/api/stages/advance/', {
 			method: 'POST',
 			body: JSON.stringify(this.state)
 		}).then((response) => {

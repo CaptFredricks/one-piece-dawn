@@ -26,7 +26,8 @@ const Characters = ({ match }) => {
 							<tr>
 								<th>Name</th>
 								<th>HP</th>
-								<th>Dmg</th>
+								<th>Attack</th>
+								<th>Defense</th>
 								<th>Tier</th>
 								<th>Level</th>
 								<th>Type</th>
@@ -36,7 +37,7 @@ const Characters = ({ match }) => {
 						</thead>
 						<tbody>
 							{characters.data.map(ch => {
-								return <Character key={ch.id} id={ch.id} name={ch.name} hp={ch.hp} dmg={ch.dmg} tier={ch.tier} level={ch.level} type={ch.type} unlock={ch.unlock} stage={account.data.current_stage} cost={ch.cost} is_purchased={ch.is_purchased} />
+								return <Character key={ch.id} id={ch.id} name={ch.name} hp={ch.hp} attack={ch.attack} defense={ch.defense} tier={ch.tier} level={ch.level} type={ch.type} unlock={ch.unlock} stage={account.data.current_stage} cost={ch.cost} is_purchased={ch.is_purchased} />
 							})}
 						</tbody>
 					</table>
