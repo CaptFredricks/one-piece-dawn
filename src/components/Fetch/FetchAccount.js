@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
 const FetchAccount = () => {
-	const hasFetched = useRef(false);
+	const has_fetched = useRef(false);
 	const [account, setAccount] = useState({data: [], isLoading: false});
 	
 	const fetchData = useCallback(async () => {
@@ -14,18 +14,18 @@ const FetchAccount = () => {
 				throw new Error('Something went wrong!');
 			}
 			
-			const dataIn = await response.json();
+			const data_in = await response.json();
 			
-			setAccount({data: dataIn, isLoading: false});
+			setAccount({data: data_in, isLoading: false});
 		} catch(err) {
 			console.log(err.message);
 		}
 	}, [account.data]);
 	
 	useEffect(() => {
-		if(!hasFetched.current) {
+		if(!has_fetched.current) {
 			fetchData();
-			hasFetched.current = true;
+			has_fetched.current = true;
 		}
 	}, [fetchData]);
 	

@@ -25,8 +25,8 @@ const FetchCharacters = () => {
 					defense: row.defense,
 					tier: row.tier,
 					level: row.level,
-					type: row.type,
-					unlock: row._unlock,
+					_class: row._class,
+					unlock: row.stage_unlock,
 					cost: row.cost,
 					is_purchased: row.is_purchased,
 					description: row.description

@@ -25,7 +25,7 @@ const FetchFormationPlayer = () => {
 					defense: row.defense,
 					tier: row.tier,
 					level: row.level,
-					type: row.type,
+					_class: row._class,
 					abilities: row.abilities
 				};
 			});

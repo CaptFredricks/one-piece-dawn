@@ -26,8 +26,9 @@ const Story = () => {
 	const formation_npc = FetchFormationNPC(account.data.current_stage);
 	
 	const [content, setContent] = useState(<p>Stage could not be loaded!</p>);
-	let isLoading = false;
-	let hasLoaded = false;
+	let is_loading = false;
+	let has_loaded = false;
+	let story_end = false;
 	
 	const playContent = useCallback(() => {
 		const stage_output = SetupStage(formation_player.data, formation_npc.data);
@@ -62,22 +63,33 @@ const Story = () => {
 	}, [account.data, stage.data, playContent]);
 	
 	if(account.isLoading || stages_count.isLoading || stage.isLoading || formation_player.isLoading || formation_npc.isLoading) {
-		isLoading = true;
+		is_loading = true;
 	}
 	
 	if(Object.keys(account.data).length > 0 && Object.keys(stage.data).length > 0 && formation_player.data.length > 0 && formation_npc.data.length > 0) {
-		hasLoaded = true;
+		has_loaded = true;
+	}
+	
+	if((account.data.current_stage !== undefined && stages_count.data !== undefined) && account.data.current_stage > stages_count.data) {
+		story_end = true;
 	}
 	
 	useEffect(() => {
-		if(isLoading) {
-			setContent(<p>Loading...</p>);
-		}
+		if(is_loading) setContent(<p>Loading...</p>);
+		if(has_loaded) modalContent();
 		
-		if(hasLoaded) {
-			modalContent();
+		if(story_end) {
+			setContent(
+				<div className="content">
+					<div className="modal">
+						<h1>Story End</h1>
+						<p>You have reached the end of the story!</p>
+						<Link to="/" className="button">Go Back</Link>
+					</div>
+				</div>
+			);
 		}
-	}, [isLoading, hasLoaded, modalContent]);
+	}, [is_loading, has_loaded, modalContent, story_end]);
 	
 	return (
 		<div className="wrapper">

@@ -23,6 +23,20 @@
 
 /* Stage */
 
+@keyframes abil {
+	0% {
+		opacity: 0;
+	}
+	
+	50% {
+		opacity: 1;
+	}
+	
+	100% {
+		opacity: 0;
+	}
+}
+
 .stage {
 	background-color: #f2f2f2;
 	box-shadow: 1px 1px 3px 0 #000;
@@ -61,6 +75,7 @@
 	  flex-direction: column;
 	list-style: none;
 	padding: 0;
+	vertical-align: top;
 	width: 50%;
 }
 
@@ -83,6 +98,7 @@
 	  align-items: center;
 	  justify-content: center;
 	height: 100%;
+	position: relative;
 }
 
 .stage li .char .image {
@@ -126,6 +142,21 @@
 	height: 100%;
 	transition: width 0.25s ease;
 	width: 100%;
+}
+
+.stage li .char .abil {
+	color: var(--heading-color);
+	font-weight: 700;
+	letter-spacing: 1px;
+	position: absolute;
+	  left: 75%;
+	  z-index: 999;
+	text-shadow: 0 0 1px #000;
+	transform: rotate(-40deg);
+}
+
+.stage li .char .abil.active {
+	animation: abil 3s ease-out infinite;
 }
 
 .stage .formations {
@@ -172,6 +203,10 @@
 
 .stage .dead .char {
 	opacity: 0.35;
+}
+
+.stage .dead .char .abil {
+	display: none;
 }
 
 .stage .button {

@@ -39,6 +39,9 @@ const FormationPlayer = (props) => {
 												<div className="hp-bar" style={{width: (props.hp ? (props.hp[x] / ch.hp * 100) : 100) + '%'}}></div>
 											</span>
 										</span>
+										<span className={'abil' + (props.output && props.output.idx === x ? ' active' : '')}>
+											{props.output && props.output.idx === x ? props.output.abil : ''}
+										</span>
 									</div>
 								</li>;
 					

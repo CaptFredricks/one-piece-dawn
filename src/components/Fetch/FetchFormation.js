@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
 const FetchFormation = () => {
-	const hasFetched = useRef(false);
+	const has_fetched = useRef(false);
 	const [formation, setFormation] = useState({data: [], isLoading: false});
 	
 	const fetchData = useCallback(async () => {
@@ -14,18 +14,18 @@ const FetchFormation = () => {
 				throw new Error('Something went wrong!');
 			}
 			
-			const dataIn = await response.json();
+			const data_in = await response.json();
 
-			setFormation({data: dataIn, isLoading: false});
+			setFormation({data: data_in, isLoading: false});
 		} catch(err) {
 			console.log(err.message);
 		}
 	}, [formation.data]);
 	
 	useEffect(() => {
-		if(!hasFetched.current) {
+		if(!has_fetched.current) {
 			fetchData();
-			hasFetched.current = true;
+			has_fetched.current = true;
 		}
 	}, [fetchData]);
 	

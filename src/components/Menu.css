@@ -1,5 +1,9 @@
-#menu {
-	
+#menu .menu-buttons-wrap {
+	display: flex;
+	  align-items: center;
+	  justify-content: space-evenly;
+	max-width: 600px;
+	width: 95%;
 }
 
 #menu .menu-buttons {

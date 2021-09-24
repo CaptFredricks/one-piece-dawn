@@ -4,6 +4,44 @@
 *Versions: X.x.x (major releases), x.X.x (standard releases), x.x.X (minor releases/bug fixes)*<br>
 *Other: [a] - alpha, [b] - beta*
 
+## Version 0.7.0 (2021-09-22)
+
+- Tweaked the main menu design
+- A message now displays notifying the player when they've reached the end of the story
+- Code cleanup
+- Redesigned the formation page
+- Tweaked the design of character cards
+- Tweaked several files to coincide with a database revamp
+- Completely rewrote the timing function for the `PlayStage` component
+- Reworked the character's max level formula
+
+**Modified files:**
+- src/App.js (M)
+- src/components/Account/AccountForm.js (M)
+- src/components/Characters/Character.js
+- src/components/Characters/CharacterCard.js
+- src/components/Characters/CharacterPurchase.js
+- src/components/Characters/Characters.css
+- src/components/Characters/Characters.js
+- src/components/Fetch/FetchAbilities.js
+- src/components/Fetch/FetchAccount.js
+- src/components/Fetch/FetchCharacter.js
+- src/components/Fetch/FetchCharacters.js
+- src/components/Fetch/FetchFormation.js
+- src/components/Fetch/FetchFormationNPC.js
+- src/components/Fetch/FetchFormationPlayer.js
+- src/components/Formation/EditFormation.js
+- src/components/Formation/Formation.css
+- src/components/Formation/Formation.js
+- src/components/Menu.css
+- src/components/Menu.js
+- src/components/Story/Formations/FormationNPC.js
+- src/components/Story/Formations/FormationPlayer.js
+- src/components/Story/PlayStage.js
+- src/components/Story/SetupStage.js
+- src/components/Story/Story.css
+- src/components/Story/Story.js
+
 ## Version 0.6.0 (2021-09-04)
 
 - Code cleanup
@@ -34,10 +72,10 @@
 - src/components/Characters/Character.js
 - src/components/Characters/CharacterCard.js
 - src/components/Characters/Characters.css
-- src/components/Characters/Characters.js
-- src/components/Fetch/FetchCharacters.js
+- src/components/Characters/Characters.js (M)
+- src/components/Fetch/FetchCharacters.js (M)
 - src/components/Fetch/FetchFormationNPC.js
-- src/components/Fetch/FetchFormationPlayer.js
+- src/components/Fetch/FetchFormationPlayer.js (M)
 - src/components/Fetch/FetchFormationStage.js
 - src/components/Fetch/FetchStage.js (R)
 - src/components/Fetch/FetchStagesCount.js (R)

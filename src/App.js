@@ -5,6 +5,8 @@ import Story from './components/Story/Story';
 import Formation from './components/Formation/Formation';
 import Characters from './components/Characters/Characters';
 import Account from './components/Account/Account';
+import './assets/font-awesome.min.css';
+import './assets/font-awesome-rules.min.css';
 import './App.css';
 
 class App extends Component {

@@ -16,6 +16,21 @@ const SetupStage = (player_data, npc_data) => {
 			return Math.floor(Math.random() * max);
 	}
 	
+	// Check whether an ability is an attack
+	const isAtk = (abil) => {
+		return abil === 'atk';
+	}
+	
+	// Check whether an ability is a defense
+	const isDef = (abil) => {
+		return abil === 'def';
+	}
+	
+	// Check whether an ability is a heal
+	const isHeal = (abil) => {
+		return abil === 'heal';
+	}
+	
 	// Calculate a character's hitpoint value
 	const calcHP = (lvl, tier, hp) => {
 		return Math.round(Math.pow(lvl, 2) / 5 * (tier / 5) + hp);
@@ -106,16 +121,16 @@ const SetupStage = (player_data, npc_data) => {
 				// Loop through the character's abilities
 				for(let j = ch.abilities.length - 1; j >= 0; j--) {
 					// If the character hasn't already played and their ability isn't defensive:
-					if(!played && ch.abilities[j].defense === 0) {
+					if(!played && !isDef(ch.abilities[j]._class)) {
 						// If the character's ability isn't on cooldown and is unlocked:
-						if(player_abils_cd[i][j] <= 0 && ch.level >= ch.abilities[j].lvl_unlock) {
+						if(player_abils_cd[i][j] <= 0 && ch.level >= ch.abilities[j].level_unlock) {
 							// Fetch a random number
 							rand = getRandom(npc.length);
 							
 							// If the ability is an attack:
-							if(ch.abilities[j].attack > 0) {
+							if(isAtk(ch.abilities[j]._class)) {
 								// Calculate the attack
-								atk = calcAtk(ch.level, ch.tier, ch.attack, ch.abilities[j].attack);
+								atk = calcAtk(ch.level, ch.tier, ch.attack, ch.abilities[j]._value);
 								
 								if(getRandom() <= calcCritChance(ch.level, ch.tier)) {
 									// Calculate the critical attack
@@ -132,7 +147,7 @@ const SetupStage = (player_data, npc_data) => {
 								
 								defense = {
 									team: 'npc',
-									type: 'def',
+									_class: 'def',
 									idx: npc[rand].idx,
 									name: npc[rand].name,
 									def: def
@@ -141,11 +156,11 @@ const SetupStage = (player_data, npc_data) => {
 								// Loop through the opponent's abilities
 								for(let k = npc[rand].abilities.length - 1; k >= 0; k--) {
 									// If the opponent has a defensive ability:
-									if(npc[rand].abilities[k].defense > 0) {
+									if(isDef(npc[rand].abilities[k]._class)) {
 										// Ensure the ability isn't on cooldown
 										if(npc_abils_cd[rand][k] <= 0) {
 											// Calculate the defense
-											def = calcDef(1, npc[rand].tier, npc[rand].defense, npc[rand].abilities[k].defense);
+											def = calcDef(1, npc[rand].tier, npc[rand].defense, npc[rand].abilities[k]._value);
 											
 											defense.abil = npc[rand].abilities[k].name;
 											defense.text = (npc[rand].name + ' defends with ' + npc[rand].abilities[k].name + ', negating ' + def + ' points of damage.');
@@ -178,7 +193,7 @@ const SetupStage = (player_data, npc_data) => {
 								// Save the attack to output
 								output[current_turn][x] = {
 									team: 'player',
-									type: 'atk',
+									_class: ch.abilities[j]._class,
 									idx: ch.idx,
 									name: ch.name,
 									abil: ch.abilities[j].name,
@@ -196,9 +211,9 @@ const SetupStage = (player_data, npc_data) => {
 							}
 							
 							// If the ability is a heal:
-							if(ch.abilities[j].heal > 0) {
+							if(isHeal(ch.abilities[j]._class)) {
 								// Calculate the effectiveness of the heal
-								heal = calcHeal(ch.level, ch.tier, ch.abilities[j].heal);
+								heal = calcHeal(ch.level, ch.tier, ch.abilities[j]._value);
 								
 								if(ch.hp + heal > player_max_hp[i])
 									ch.hp = player_max_hp[i];
@@ -208,7 +223,7 @@ const SetupStage = (player_data, npc_data) => {
 								// Save the heal to output
 								output[current_turn][x] = {
 									team: 'player',
-									type: 'heal',
+									_class: ch.abilities[j]._class,
 									idx: ch.idx,
 									name: ch.name,
 									heal: heal,
@@ -245,16 +260,16 @@ const SetupStage = (player_data, npc_data) => {
 				// Loop through the character's abilities
 				for(let j = ch.abilities.length - 1; j >= 0; j--) {
 					// If the character hasn't already played and their ability isn't defensive:
-					if(!played && ch.abilities[j].defense === 0) {
+					if(!played && !isDef(ch.abilities[j]._class)) {
 						// If the character's ability isn't on cooldown:
 						if(npc_abils_cd[i][j] <= 0) {
 							// Fetch a random number
 							rand = getRandom(player.length);
 							
 							// If the ability is an attack:
-							if(ch.abilities[j].attack > 0) {
+							if(isAtk(ch.abilities[j]._class)) {
 								// Calculate the attack
-								atk = calcAtk(1, ch.tier, ch.attack, ch.abilities[j].attack);
+								atk = calcAtk(1, ch.tier, ch.attack, ch.abilities[j]._value);
 								
 								if(getRandom() <= calcCritChance(ch.level, ch.tier)) {
 									// Calculate the critical attack
@@ -271,7 +286,7 @@ const SetupStage = (player_data, npc_data) => {
 								
 								defense = {
 									team: 'player',
-									type: 'def',
+									_class: 'def',
 									idx: player[rand].idx,
 									name: player[rand].name,
 									def: def
@@ -280,11 +295,11 @@ const SetupStage = (player_data, npc_data) => {
 								// Loop through the opponent's abilities
 								for(let k = player[rand].abilities.length - 1; k >= 0; k--) {
 									// If the opponent has a defensive ability:
-									if(player[rand].abilities[k].defense > 0 && player[rand].level >= player[rand].abilities[k].lvl_unlock) {
+									if(isDef(player[rand].abilities[k]._class) && player[rand].level >= player[rand].abilities[k].level_unlock) {
 										// Ensure the ability isn't on cooldown
 										if(player_abils_cd[rand][k] <= 0) {
 											// Calculate the defense
-											def = calcDef(player[rand].level, player[rand].tier, player[rand].defense, player[rand].abilities[k].defense);
+											def = calcDef(player[rand].level, player[rand].tier, player[rand].defense, player[rand].abilities[k]._value);
 											
 											defense.abil = player[rand].abilities[k].name;
 											defense.text = (player[rand].name + ' defends with ' + player[rand].abilities[k].name + ', negating ' + def + ' points of damage.');
@@ -316,7 +331,7 @@ const SetupStage = (player_data, npc_data) => {
 								
 								output[current_turn][x] = {
 									team: 'npc',
-									type: 'atk',
+									_class: ch.abilities[j]._class,
 									idx: ch.idx,
 									name: ch.name,
 									abil: ch.abilities[j].name,
@@ -334,9 +349,9 @@ const SetupStage = (player_data, npc_data) => {
 							}
 							
 							// If the ability is a heal:
-							if(ch.abilities[j].heal > 0) {
+							if(isHeal(ch.abilities[j]._class)) {
 								// Calculate the effectiveness of the heal
-								heal = calcHeal(1, ch.tier, ch.abilities[j].heal);
+								heal = calcHeal(1, ch.tier, ch.abilities[j]._value);
 								
 								if(ch.hp + heal > npc_max_hp[i])
 									ch.hp = npc_max_hp[i];
@@ -346,7 +361,7 @@ const SetupStage = (player_data, npc_data) => {
 								// Save the heal to output
 								output[current_turn][x] = {
 									team: 'npc',
-									type: 'heal',
+									_class: ch.abilities[j]._class,
 									idx: ch.idx,
 									name: ch.name,
 									heal: heal,

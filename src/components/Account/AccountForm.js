@@ -9,8 +9,8 @@ class AccountForm extends Component {
 		data = props.data;
 		
 		this.state = {
-			username: data.username,
-			email: data.email
+			username: data.username ?? '',
+			email: data.email ?? ''
 		}
 	}
 	

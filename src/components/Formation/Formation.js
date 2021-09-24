@@ -22,10 +22,23 @@ const Formation = ({ match }) => {
 		form.forEach((fm, idx) => {
 			characters.data.some(ch => {
 				if(ch.id === fm) {
-					form[idx] = ch.name;
+					form[idx] = <li key={idx}>
+									<img className="image" src={`/images/characters/${ch.name}.png`} title={ch.name} alt={ch.name} />
+									<span className="name">{ch.name}</span>
+									<span className="icons-wrap">
+										<i className="fas fa-star tier" title="Tier">
+											<span>{ch.tier}</span>
+										</i>
+										<i className="fas fa-circle level" title="Level">
+											<span>{ch.level}</span>
+										</i>
+									</span>
+								</li>;
 					return true;
 				} else if(fm === 0) {
-					form[idx] = <i>empty</i>;
+					form[idx] = <li key={idx}>
+									<i className="empty">empty</i>
+								</li>;
 					return true;
 				} else {
 					return false;
@@ -37,9 +50,7 @@ const Formation = ({ match }) => {
 					<div className="formation">
 						<h1>Your Formation</h1>
 						<ul>
-							{form.map((slot, idx) => {
-								return <li key={idx}>{slot}</li>
-							})}
+							{form.map(slot => { return slot; })}
 						</ul>
 					</div>
 				</div>;

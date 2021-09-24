@@ -15,7 +15,87 @@
 
 .formation ul {
 	list-style: none;
-	padding: 0;
+	padding: 0 5%;
+}
+
+.formation ul li {
+	display: flex;
+	  align-items: center;
+	  justify-content: left;
+	line-height: 50px;
+	position: relative;
+}
+
+.formation ul li:nth-child(odd) {
+	background-color: #eaeaea;
+}
+
+.formation ul li:nth-child(even) {
+	background-color: #e2e2e2;
+}
+
+.formation ul li .empty {
+	margin-left: calc(50px + 0.5em);
+}
+
+.formation ul li .image {
+	margin-right: 0.5em;
+	max-height: 50px;
+	max-width: 50px;
+	overflow: hidden;
+	position: relative;
+}
+
+.formation ul li .image::before {
+	background-image: url('../../assets/Default.png');
+	background-size: 100%;
+	content: '';
+	height: 100%;
+	position: absolute;
+	  top: 0;
+	  left: 0;
+	width: 100%;
+}
+
+.formation ul li .name {
+	
+}
+
+.formation ul li .icons-wrap {
+	display: flex;
+	position: absolute;
+	  right: 1em;
+}
+
+.formation ul li .icons-wrap i {
+	cursor: help;
+	font-size: 1.75rem;
+	line-height: 1.75rem;
+	position: relative;
+	text-shadow: 1px 1px 4px #000;
+}
+
+.formation ul li .icons-wrap i:not(:last-child) {
+	margin-right: 0.5rem;
+}
+
+.formation ul li .icons-wrap i span {
+	color: #000;
+	font-size: 1rem;
+	position: absolute;
+	  top: 0;
+	  right: 0;
+	  bottom: 0;
+	  left: 0;
+	text-shadow: none;
+}
+
+.formation ul li .tier {
+	color: #ffd700;
+}
+
+.formation ul li .level {
+	color: #34a4ed;
 }
 
 .formation-form label {

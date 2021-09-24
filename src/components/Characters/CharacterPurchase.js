@@ -16,7 +16,7 @@ const CharacterPurchase = ({match, data}) => {
 	
 	if(Object.keys(account).length > 0 && Object.keys(character.data).length > 0 && character.data.is_playable) {
 		// Set whether the character is unlocked
-		let unlocked = character.data._unlock < account.current_stage;
+		let unlocked = character.data.stage_unlock < account.current_stage;
 		
 		content = <div className="content">
 					{unlocked ? (character.data.cost === 0 || character.data.is_purchased ? <div>

@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
 const FetchAbilities = (ch_id) => {
-	const hasFetched = useRef(false);
+	const has_fetched = useRef(false);
 	const [abilities, setAbilities] = useState({data: [], isLoading: false});
 	
 	const fetchData = useCallback(async () => {
@@ -14,31 +14,31 @@ const FetchAbilities = (ch_id) => {
 				throw new Error('Something went wrong!');
 			}
 			
-			const dataIn = await response.json();
+			const data_in = await response.json();
 			
-			const transformedData = dataIn.results.map(row => {
+			const transformed_data = data_in.results.map(row => {
 				return {
 					id: row.id,
-					ch: row.ch,
 					name: row.name,
-					attack: row.attack,
-					defense: row.defense,
-					heal: row.heal,
-					lvl_unlock: row.lvl_unlock,
-					description: row.description,
+					ch: row.ch,
+					_class: row._class,
+					_value: row._value,
+					cooldown: row.cooldown,
+					lvl_unlock: row.level_unlock,
+					description: row.description
 				};
 			});
 			
-			setAbilities({data: transformedData, isLoading: false});
+			setAbilities({data: transformed_data, isLoading: false});
 		} catch(err) {
 			console.log(err.message);
 		}
 	}, [abilities.data, ch_id]);
 	
 	useEffect(() => {
-		if(!hasFetched.current && ch_id > 0) {
+		if(!has_fetched.current && ch_id > 0) {
 			fetchData();
-			hasFetched.current = true;
+			has_fetched.current = true;
 		}
 	}, [fetchData, ch_id]);
 	

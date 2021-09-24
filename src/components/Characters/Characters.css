@@ -148,14 +148,10 @@ dd img {
 	position: relative;
 }
 
-.card .level-wrap svg {
-	height: 50px;
-	width: 50px;
-}
-
-.card .level-wrap path,
-.card .level-wrap circle {
-	fill: #ffd700;
+.card .level-wrap i {
+	color: #34a4ed;
+	font-size: 50px;
+	text-shadow: 0 1px 3px #000;
 }
 
 .card .level {
@@ -165,10 +161,10 @@ dd img {
 	  justify-content: center;
 	font-size: 1.25rem;
 	font-weight: 700;
-	height: 47px;
+	height: 50px;
 	line-height: 1;
 	position: absolute;
-	  top: 3px;
+	  top: 0;
 	  left: 0;
 	width: 50px;
 }
@@ -182,6 +178,10 @@ dd img {
 
 .card .unlock.is-unlocked {
 	color: #080;
+}
+
+.card .unlock i {
+	text-shadow: 1px 1px 3px #000;
 }
 
 .card .level-up-form .button {
@@ -246,6 +246,7 @@ dd img {
 .card .image {
 	border: 3px solid #f00;
 	border-radius: 8px;
+	box-shadow: 1px 1px 4px #000;
 	display: block;
 	line-height: calc(var(--image--large) + 6px);
 	margin: 0 auto;
