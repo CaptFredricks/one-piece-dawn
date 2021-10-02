@@ -1,14 +1,14 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-const FetchStagesCount = () => {
+const FetchCharactersCount = () => {
 	const has_fetched = useRef(false);
-	const [stages, setStages] = useState({data: 0, isLoading: false});
+	const [characters, setCharacters] = useState({ data: 0, isLoading: false });
 	
 	const fetchData = useCallback(async () => {
-		setStages({data: stages.data, isLoading: true});
+		setCharacters({ data: characters.data, isLoading: true });
 		
 		try {
-			const response = await fetch('/api/stages/');
+			const response = await fetch('/api/characters/');
 			
 			if(!response.ok) {
 				throw new Error('Something went wrong!');
@@ -16,11 +16,11 @@ const FetchStagesCount = () => {
 			
 			const data_in = await response.json();
 			
-			setStages({data: data_in, isLoading: false});
+			setCharacters({ data: data_in, isLoading: false });
 		} catch(err) {
 			console.log(err);
 		}
-	}, [stages.data]);
+	}, [characters.data]);
 	
 	useEffect(() => {
 		if(!has_fetched.current) {
@@ -29,7 +29,7 @@ const FetchStagesCount = () => {
 		}
 	}, [fetchData]);
 	
-	return stages;
+	return characters;
 };
 
-export default FetchStagesCount;
+export default FetchCharactersCount;

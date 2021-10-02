@@ -4,8 +4,6 @@ import FetchAccount from '../Fetch/FetchAccount';
 import AccountForm from './AccountForm';
 
 const EditAccount = ({ match }) => {
-	const path = '/account/';
-	
 	// Fetch account data
 	const account = FetchAccount();
 	
@@ -20,7 +18,7 @@ const EditAccount = ({ match }) => {
 	return (
 		<main>
 			<div className="breadcrumb">
-				<Link to="/">Menu</Link> &rsaquo; <Link to={path}>Account</Link> &rsaquo; Edit
+				<Link to="/">Menu</Link> &rsaquo; <Link to="/account/">Account</Link> &rsaquo; Edit
 			</div>
 			{content}
 		</main>

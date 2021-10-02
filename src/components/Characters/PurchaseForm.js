@@ -11,8 +11,7 @@ class PurchaseForm extends Component {
 		
 		this.state = {
 			id: this.character.id,
-			cost: this.character.cost,
-			is_purchased: !this.character.is_purchased
+			cost: this.character.cost
 		}
 	}
 	

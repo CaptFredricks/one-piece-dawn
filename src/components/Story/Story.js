@@ -70,7 +70,7 @@ const Story = () => {
 		has_loaded = true;
 	}
 	
-	if((account.data.current_stage !== undefined && stages_count.data !== undefined) && account.data.current_stage > stages_count.data) {
+	if((account.data.current_stage !== undefined && stages_count.data !== undefined) && account.data.current_stage > stages_count.data && stages_count.data > 0) {
 		story_end = true;
 	}
 	

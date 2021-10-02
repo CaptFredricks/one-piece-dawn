@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
 const FetchFormationPlayer = () => {
-	const hasFetched = useRef(false);
+	const has_fetched = useRef(false);
 	const [formation, setFormation] = useState({data: [], isLoading: false});
 	
 	const fetchData = useCallback(async () => {
@@ -14,9 +14,9 @@ const FetchFormationPlayer = () => {
 				throw new Error('Something went wrong!');
 			}
 			
-			const dataIn = await response.json();
+			const data_in = await response.json();
 			
-			const transformedData = dataIn.results.map(row => {
+			const transformed_data = data_in.results.map(row => {
 				return {
 					id: row.id,
 					name: row.name,
@@ -24,22 +24,22 @@ const FetchFormationPlayer = () => {
 					attack: row.attack,
 					defense: row.defense,
 					tier: row.tier,
-					level: row.level,
 					_class: row._class,
+					level: row.level,
 					abilities: row.abilities
 				};
 			});
 			
-			setFormation({data: transformedData, isLoading: false});
+			setFormation({data: transformed_data, isLoading: false});
 		} catch(err) {
 			console.log(err.message);
 		}
 	}, [formation.data]);
 	
 	useEffect(() => {
-		if(!hasFetched.current) {
+		if(!has_fetched.current) {
 			fetchData();
-			hasFetched.current = true;
+			has_fetched.current = true;
 		}
 	}, [fetchData]);
 	

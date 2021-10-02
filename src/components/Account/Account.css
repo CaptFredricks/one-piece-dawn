@@ -1,9 +1,14 @@
+/* Account page */
+
+.account {
+	max-width: 650px;
+}
+
 .account,
 .account-form {
 	background-color: #f2f2f2;
 	box-shadow: 1px 1px 3px 0px #000;
 	margin: 1em auto;
-	max-width: 450px;
 	padding: 0.75em;
 	width: 100%;
 }
@@ -11,6 +16,10 @@
 .account h1,
 .account-form h1 {
 	margin-top: 0;
+}
+
+.account dl {
+	margin: 0;
 }
 
 .account dt {
@@ -33,6 +42,31 @@
 	vertical-align: middle;
 }
 
+.account .panels {
+	padding: 1em;
+}
+
+.account .left-panel,
+.account .right-panel {
+	padding: 0.5em 0;
+}
+
+.account .right-panel ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.account .right-panel ul li {
+	margin: 0.5em 0;
+}
+
+/* Form */
+
+.account-form {
+	max-width: 450px;
+}
+
 .account-form input:not(.button) {
 	font-size: 0.875rem;
 	line-height: 1.5;
@@ -40,6 +74,33 @@
 	width: 100%;
 }
 
+.account-form .error {
+	background-color: #febea2;
+	font-weight: 700;
+	margin-top: 0;
+	padding: 0.5em 0;
+}
+
 .account-form .button {
 	margin-bottom: 0.75rem;
+}
+
+.account-form .button:not(:last-child) {
+	margin-right: 0.5rem;
+}
+
+@media screen and (min-width: 650px) {
+	.account .panels {
+		display: flex;
+	}
+	
+	.account .left-panel {
+		text-align: left;
+		width: 50%;
+	}
+
+	.account .right-panel {
+		text-align: right;
+		width: 50%;
+	}
 }

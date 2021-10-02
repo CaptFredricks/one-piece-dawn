@@ -24,8 +24,8 @@ const FetchFormationNPC = (stage) => {
 					attack: row.attack,
 					defense: row.defense,
 					tier: row.tier,
-					level: row.level,
 					_class: row._class,
+					level: row.level,
 					abilities: row.abilities
 				};
 			});

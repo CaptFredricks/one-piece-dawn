@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 
-let data = null;
-
 class AccountForm extends Component {
 	constructor(props) {
 		super(props);
 		
-		data = props.data;
+		this.data = props.data;
 		
 		this.state = {
-			username: data.username ?? '',
-			email: data.email ?? ''
+			id: this.data.id,
+			username: this.data.username ?? '',
+			email: this.data.email ?? ''
 		}
 	}
 	
 	submitData = (e) => {
-		//e.preventDefault();
+		// Stop the form from submitting
+		e.preventDefault();
 		
 		fetch('/api/account/save/', {
 			method: 'POST',
@@ -24,6 +24,10 @@ class AccountForm extends Component {
 			return response.text();
 		}).then((text) => {
 			console.log(text);
+			
+			// Redirect to the account page
+			window.location.href = '/account/';
+			return false;
 		});
 	}
 	
@@ -32,7 +36,7 @@ class AccountForm extends Component {
 			<form className="account-form" onSubmit={this.submitData}>
 				<h1>Save Account</h1>
 				<label>Username:
-					<input name="username" value={this.state.username} onChange={
+					<input value={this.state.username} onChange={
 						e => this.setState({ username: e.target.value })
 					} />
 				</label>
@@ -41,7 +45,7 @@ class AccountForm extends Component {
 						e => this.setState({ email: e.target.value })
 					} />
 				</label>
-				<input type="submit" className="button" name="submit_form" />
+				<input type="submit" className="button" name="submit_form" value="Save" />
 			</form>
 		);
 	}

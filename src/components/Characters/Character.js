@@ -38,7 +38,7 @@ Bonus: ${defense - props.defense}`}>{defense}</span>
 			<td className="col-level">{props.level}</td>
 			<td className="col-class">{props._class}</td>
 			<td className="col-unlocked"><span style={{cursor: 'help'}} title={unlocked ? '' : 'Unlocks after Stage ' + props.unlock}>{unlocked ? 'Yes' : 'No'}</span></td>
-			<td className="col-is-purchased"><span style={{cursor: 'help'}} title={props.cost > 0 ? (props.is_purchased ? '' : 'Purchase for ' + props.cost + ' Belly') : 'Free'}>{props.cost > 0 ? (props.is_purchased ? 'Yes' : 'No') : '\u2014'}</span></td>
+			<td className="col-is-purchased"><span style={{cursor: 'help'}} title={props.cost > 0 ? (props.is_owned ? '' : 'Purchase for ' + props.cost + ' Belly') : 'Free'}>{props.cost > 0 ? (props.is_owned ? 'Yes' : 'No') : '\u2014'}</span></td>
 		</tr>
 	);
 };

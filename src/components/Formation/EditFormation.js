@@ -19,10 +19,8 @@ const EditFormation = ({ match }) => {
 	
 	if(Object.keys(account.data).length > 0 && Object.keys(formation.data).length > 0 && characters.data.length > 0) {
 		for(let i = characters.data.length - 1; i >= 0; i--) {
-			// Exclude characters that are not yet unlocked or purchased
-			if(characters.data[i].unlock >= account.data.current_stage || (characters.data[i].cost > 0 && !characters.data[i].is_purchased)) {
-				characters.data.splice(i, 1);
-			}
+			// Exclude characters that are not yet owned
+			if(!characters.data[i].is_owned) characters.data.splice(i, 1);
 		}
 		
 		content = <div className="content">

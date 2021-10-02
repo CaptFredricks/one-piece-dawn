@@ -4,6 +4,59 @@
 *Versions: X.x.x (major releases), x.X.x (standard releases), x.x.X (minor releases/bug fixes)*<br>
 *Other: [a] - alpha, [b] - beta*
 
+## Version 0.8.0 (2021-10-02)
+
+- Changed all instances of `is_purchased` to `is_owned` in the code
+- Fixed an issue where the Story End text was briefly displayed any time a stage was loaded
+- Tweaked a previous entry in the changelog
+- Players must now have an account and be logged in to view or play the game
+- Players can now reset their account password
+- Players can now reset their account data
+- Added pagination to the characters page
+- Added images for the following characters:
+  - Morgan
+  - Ripper
+
+**Known issues:**
+- Players are not always able to log in properly due to a cookie setting issue
+
+**Modified files:**
+- package-lock.json
+- package.json
+- public/images/characters/Luffy (East Blue).png (R)
+- public/images/characters/Morgan.png (N)
+- public/images/characters/Ripper.png (N)
+- public/images/characters/Zoro (East Blue).png (R)
+- src/App.js
+- src/components/Account/Account.css
+- src/components/Account/Account.js
+- src/components/Account/AccountForm.js
+- src/components/Account/EditAccount.js
+- src/components/Account/Login/Login.css (N)
+- src/components/Account/Login/Login.js (N)
+- src/components/Account/Login/LoginForm.js (N)
+- src/components/Account/Login/Logout.js (N)
+- src/components/Account/Login/RegisterAccount.js (N)
+- src/components/Account/Login/RegisterForm.js (N)
+- src/components/Account/Reset/ResetAccount.js (N)
+- src/components/Account/Reset/ResetAccountForm.js (N)
+- src/components/Account/Reset/ResetPassword.js (N)
+- src/components/Account/Reset/ResetPasswordForm.js (N)
+- src/components/Characters/Character.js (M)
+- src/components/Characters/CharacterCard.js (M)
+- src/components/Characters/CharacterPurchase.js (M)
+- src/components/Characters/Characters.js
+- src/components/Characters/PurchaseForm.js (M)
+- src/components/Fetch/FetchCharacters.js
+- src/components/Fetch/FetchCharactersCount.js (N)
+- src/components/Fetch/FetchFormationNPC.js (M)
+- src/components/Fetch/FetchFormationPlayer.js
+- src/components/Fetch/FetchLogin.js (N)
+- src/components/Fetch/FetchStagesCount.js (M)
+- src/components/Formation/EditFormation.js (M)
+- src/components/Story/Story.js
+- src/index.js
+
 ## Version 0.7.0 (2021-09-22)
 
 - Tweaked the main menu design
@@ -14,29 +67,30 @@
 - Tweaked several files to coincide with a database revamp
 - Completely rewrote the timing function for the `PlayStage` component
 - Reworked the character's max level formula
+  - The level caps for each tier are now higher
 
 **Modified files:**
 - src/App.js (M)
 - src/components/Account/AccountForm.js (M)
-- src/components/Characters/Character.js
+- src/components/Characters/Character.js (M)
 - src/components/Characters/CharacterCard.js
-- src/components/Characters/CharacterPurchase.js
+- src/components/Characters/CharacterPurchase.js (M)
 - src/components/Characters/Characters.css
-- src/components/Characters/Characters.js
+- src/components/Characters/Characters.js (M)
 - src/components/Fetch/FetchAbilities.js
 - src/components/Fetch/FetchAccount.js
 - src/components/Fetch/FetchCharacter.js
-- src/components/Fetch/FetchCharacters.js
+- src/components/Fetch/FetchCharacters.js (M)
 - src/components/Fetch/FetchFormation.js
-- src/components/Fetch/FetchFormationNPC.js
-- src/components/Fetch/FetchFormationPlayer.js
-- src/components/Formation/EditFormation.js
+- src/components/Fetch/FetchFormationNPC.js (M)
+- src/components/Fetch/FetchFormationPlayer.js (M)
+- src/components/Formation/EditFormation.js (M)
 - src/components/Formation/Formation.css
 - src/components/Formation/Formation.js
-- src/components/Menu.css
+- src/components/Menu.css (M)
 - src/components/Menu.js
-- src/components/Story/Formations/FormationNPC.js
-- src/components/Story/Formations/FormationPlayer.js
+- src/components/Story/Formations/FormationNPC.js (M)
+- src/components/Story/Formations/FormationPlayer.js (M)
 - src/components/Story/PlayStage.js
 - src/components/Story/SetupStage.js
 - src/components/Story/Story.css
@@ -50,13 +104,13 @@
 - Added character images and HP bars to the stage formations
 - Stages are now much more dynamic; in addition to the status update bar at the bottom, both the player and NPC characters' HP and status now update in real time
 - Added images for the following characters:
- - Mountain Bandit
- - Heppoko
- - Peppoko
- - Helmeppo
- - Rokkaku
- - Ukkari
- - Roronoa Zoro
+  - Mountain Bandit
+  - Heppoko
+  - Peppoko
+  - Helmeppo
+  - Rokkaku
+  - Ukkari
+  - Roronoa Zoro
 - Fixed a bug that occurred if either team's last character was killed before the opposing team's characters had finished their current turn
 - Added `todo.txt` to the `.gitignore`
 

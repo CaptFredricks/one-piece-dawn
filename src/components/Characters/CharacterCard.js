@@ -24,7 +24,7 @@ const CharacterCard = ({ match, data }) => {
 		const data = character.data;
 		const tier = [];
 		const unlocked = data.stage_unlock < account.current_stage;
-		const is_purchased = data.is_purchased ?? 0;
+		const is_owned = data.is_owned;
 		
 		// Tier 1: 5
 		// Tier 2: 10
@@ -61,13 +61,13 @@ const CharacterCard = ({ match, data }) => {
 								</div>
 								<span className={'unlock' + (unlocked ? ' is-unlocked' : '')} title={unlocked ? 'Character unlocked!' : 'Character unlocks after Stage ' + data.stage_unlock}><i className={unlocked ? 'fas fa-unlock' : 'fas fa-lock'}></i></span>
 							</div>
-							{unlocked && (data.cost === 0 || (data.cost > 0 && is_purchased)) && (account.medallions > 0 && account.belly > cost) ? (current_lvl < max_lvl ? <CharacterLevelUpForm ch_id={data.id} cost={cost} /> : <p>Max level reached!</p>) : null}
+							{unlocked && (data.cost === 0 || (data.cost > 0 && is_owned)) && (account.medallions > 0 && account.belly > cost) ? (current_lvl < max_lvl ? <CharacterLevelUpForm ch_id={data.id} cost={cost} /> : <p>Max level reached!</p>) : null}
 							<ul className="stats">
 								<li><strong title="Hitpoints">HP</strong> <span>{hp}</span></li>
 								<li><strong title="Base attack">ATK</strong> <span>{attack}</span></li>
 								<li><strong title="Base defense">DEF</strong> <span>{defense}</span></li>
 								<li><strong title="Purchase cost">COST</strong> <span>{data.cost > 0 ? <span><img src={Belly} title="Belly" alt="Belly" />{data.cost}</span> : 'Free'}</span></li>
-								<li>{unlocked && data.cost > 0 && !is_purchased ? <Link to={`/characters/purchase/${id}/`} className="button">Purchase</Link> : null}</li>
+								<li>{unlocked && data.cost > 0 && !is_owned ? <Link to={`/characters/purchase/${id}/`} className="button">Purchase</Link> : null}</li>
 							</ul>
 							<h2>Abilities</h2>
 							{abilities.isLoading ? <p>Loading...</p> : (abilities.data.length > 0 ? <ul className="abilities">

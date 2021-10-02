@@ -1,14 +1,14 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-const FetchCharacters = () => {
+const FetchCharacters = (start, per_page, update) => {
 	const has_fetched = useRef(false);
-	const [characters, setCharacters] = useState({data: [], isLoading: false});
+	const [characters, setCharacters] = useState({ data: [], isLoading: false });
 	
 	const fetchData = useCallback(async () => {
-		setCharacters({data: characters.data, isLoading: true});
+		setCharacters({ data: characters.data, isLoading: true });
 		
 		try {
-			const response = await fetch('/api/characters/');
+			const response = await fetch(`/api/characters/${start}-${per_page}/`);
 			
 			if(!response.ok) {
 				throw new Error('Something went wrong!');
@@ -24,27 +24,31 @@ const FetchCharacters = () => {
 					attack: row.attack,
 					defense: row.defense,
 					tier: row.tier,
-					level: row.level,
 					_class: row._class,
 					unlock: row.stage_unlock,
 					cost: row.cost,
-					is_purchased: row.is_purchased,
-					description: row.description
+					description: row.description,
+					level: row.level,
+					is_owned: row.is_owned,
 				};
 			});
 			
-			setCharacters({data: transformed_data, isLoading: false});
+			setCharacters({ data: transformed_data, isLoading: false });
 		} catch(err) {
 			console.log(err.message);
 		}
-	}, [characters.data]);
+	}, [characters.data, start, per_page]);
 	
 	useEffect(() => {
+		if(update) {
+			has_fetched.current = false;
+		}
+		
 		if(!has_fetched.current) {
 			fetchData();
 			has_fetched.current = true;
 		}
-	}, [fetchData]);
+	}, [update, fetchData]);
 	
 	return characters;
 };

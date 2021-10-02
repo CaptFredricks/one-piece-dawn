@@ -19,7 +19,7 @@ const CharacterPurchase = ({match, data}) => {
 		let unlocked = character.data.stage_unlock < account.current_stage;
 		
 		content = <div className="content">
-					{unlocked ? (character.data.cost === 0 || character.data.is_purchased ? <div>
+					{unlocked ? (character.data.cost === 0 || character.data.is_owned ? <div>
 							<p>You already own this character.</p>
 							<Link to={`${path}card/${id}/`} className="button">Go Back</Link>
 						</div> : <PurchaseForm account={account} character={character.data} />) : <div>
