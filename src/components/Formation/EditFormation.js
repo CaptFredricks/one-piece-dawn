@@ -1,34 +1,32 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import FetchAccount from '../Fetch/FetchAccount';
-import FetchFormation from '../Fetch/FetchFormation';
-import FetchCharacters from '../Fetch/FetchCharacters';
 import FormationForm from './FormationForm';
 
-const EditFormation = ({ match }) => {
+const EditFormation = (props) => {
 	// Fetch account data
-	const account = FetchAccount();
+	const account = FetchAccount(props.token);
 	
 	// Fetch formation data
-	const formation = FetchFormation();
+	const formation = props.form;
 	
 	// Fetch characters data
-	const characters = FetchCharacters();
+	const characters = props.chars.map(chars => ({...chars}));
 	
 	let content = <p>No characters found!</p>;
 	
-	if(Object.keys(account.data).length > 0 && Object.keys(formation.data).length > 0 && characters.data.length > 0) {
-		for(let i = characters.data.length - 1; i >= 0; i--) {
+	if(Object.keys(account.data).length > 0 && Object.keys(formation).length > 0 && characters.length > 0) {
+		for(let i = characters.length - 1; i >= 0; i--) {
 			// Exclude characters that are not yet owned
-			if(!characters.data[i].is_owned) characters.data.splice(i, 1);
+			if(!characters[i].is_owned) characters.splice(i, 1);
 		}
 		
 		content = <div className="content">
-					<FormationForm form={formation.data} chars={characters.data} />
+					<FormationForm id={account.data.id} form={formation} chars={characters} />
 				</div>;
 	}
 	
-	if(account.isLoading || formation.isLoading || characters.isLoading) {
+	if(account.isLoading) {
 		content = <p>Loading...</p>;
 	}
 	

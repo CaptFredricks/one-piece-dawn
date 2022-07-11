@@ -1,15 +1,14 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-const FetchFormationPlayer = (token) => {
+const FetchCharactersFormation = () => {
 	const has_fetched = useRef(false);
-	const [formation, setFormation] = useState({data: [], isLoading: false});
-	token = encodeURIComponent(token);
+	const [characters, setCharacters] = useState({ data: [], isLoading: false });
 	
 	const fetchData = useCallback(async () => {
-		setFormation({data: formation.data, isLoading: true});
+		setCharacters({data: characters.data, isLoading: true});
 		
 		try {
-			const response = await fetch(`/api/formation/player/${token}/`);
+			const response = await fetch('/api/characters/formation/');
 			
 			if(!response.ok) {
 				throw new Error('Something went wrong!');
@@ -26,16 +25,19 @@ const FetchFormationPlayer = (token) => {
 					defense: row.defense,
 					tier: row.tier,
 					_class: row._class,
+					unlock: row.stage_unlock,
+					cost: row.cost,
+					description: row.description,
 					level: row.level,
-					abilities: row.abilities
+					is_owned: row.is_owned
 				};
 			});
 			
-			setFormation({data: transformed_data, isLoading: false});
+			setCharacters({ data: transformed_data, isLoading: false });
 		} catch(err) {
 			console.log(err.message);
 		}
-	}, [formation.data, token]);
+	}, [characters.data]);
 	
 	useEffect(() => {
 		if(!has_fetched.current) {
@@ -44,7 +46,7 @@ const FetchFormationPlayer = (token) => {
 		}
 	}, [fetchData]);
 	
-	return formation;
+	return characters;
 };
 
-export default FetchFormationPlayer;
+export default FetchCharactersFormation;

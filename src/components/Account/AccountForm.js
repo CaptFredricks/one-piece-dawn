@@ -14,7 +14,6 @@ class AccountForm extends Component {
 	}
 	
 	submitData = (e) => {
-		// Stop the form from submitting
 		e.preventDefault();
 		
 		fetch('/api/account/save/', {
@@ -23,7 +22,7 @@ class AccountForm extends Component {
 		}).then((response) => {
 			return response.text();
 		}).then((text) => {
-			console.log(text);
+			//console.log(text);
 			
 			// Redirect to the account page
 			window.location.href = '/account/';

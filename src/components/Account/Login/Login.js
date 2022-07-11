@@ -1,9 +1,9 @@
 import LoginForm from './LoginForm';
 import './Login.css';
 
-const Login = () => {
+const Login = (props) => {
 	let content = <div className="content">
-					<LoginForm />
+					<LoginForm setToken={props.setToken} />
 				</div>;
 	
 	return (

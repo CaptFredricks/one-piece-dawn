@@ -29,7 +29,7 @@ const FetchCharacters = (start, per_page, update) => {
 					cost: row.cost,
 					description: row.description,
 					level: row.level,
-					is_owned: row.is_owned,
+					is_owned: row.is_owned
 				};
 			});
 			

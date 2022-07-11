@@ -3,7 +3,7 @@ import FetchFormation from '../../Fetch/FetchFormation';
 
 const FormationPlayer = (props) => {
 	// Fetch formation data
-	const formation = FetchFormation();
+	const formation = FetchFormation(props.token);
 	
 	let content = <p>Formation not found!</p>;
 	

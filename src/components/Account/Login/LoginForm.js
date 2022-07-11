@@ -1,78 +1,60 @@
-import React, { Component } from 'react';
-import { instanceOf } from 'prop-types';
-import { withCookies, Cookies } from 'react-cookie';
+import { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
 
-class LoginForm extends Component {
-	static propTypes = {
-		cookies: instanceOf(Cookies).isRequired
-	};
+const LoginForm = (props) => {
+	const [username, setUsername] = useState('');
+	const [password, setPassword] = useState('');
+	const [error, setError] = useState(null);
 	
-	constructor(props) {
-		super(props);
-		
-		this.state = {
-			username: '',
-			password: '',
-			error: null,
-			session: ''
-		}
-	}
-	
-	submitData = (e) => {
-		const { cookies } = this.props;
-		
+	const submitData = useCallback(async e => {
 		e.preventDefault();
 		
-		if(this.state.username !== '' && this.state.password !== '') {
-			let expires = new Date();
-			
-			// Set the cookie to expire in 2 weeks
-			expires.setDate(expires.getDate() + 14);
-			
+		if(username !== '' && password !== '') {
 			fetch('/api/account/login/', {
 				method: 'POST',
-				body: JSON.stringify(this.state)
-			}).then((response) => {
+				body: JSON.stringify({ username, password })
+			}).then(response => {
 				return response.text();
-			}).then((text) => {
-				console.log('Logged in.');
+			}).then(response_text => {
+				let text = JSON.parse(response_text);
 				
-				let data = text.split(' ');
-				this.setState({ error: null, session: data[1] });
+				if(text.error != null) {
+					setError(<p className="error">{text.error}</p>);
+				}
 				
-				// Create a cookie with the session value
-				cookies.set('session', this.state.session, {
-					path: '/',
-					expires: expires,
-					secure: !!data[0]
-				});
+				if(text.token != null) {
+					props.setToken(text);
+					setError(null);
+					console.log('Logged in.');
+				}
 			});
 		} else {
 			e.preventDefault();
-			
-			this.setState({ error: <p className="error">Please fill out all fields!</p> });
+			setError(<p className="error">Please fill out all fields!</p>);
 		}
-	}
+	}, [props, username, password]);
 	
-	render() {
-		return (
-			<form className="login-form" onSubmit={this.submitData}>
-				<h1>Account Login</h1>
-				<label>Username:
-					<input value={this.state.username} onChange={
-						e => this.setState({ username: e.target.value })
-					} />
-				</label>
-				<label>Password:
-					<input value={this.state.password} onChange={
-						e => this.setState({ password: e.target.value })
-					} />
-				</label>
-				{this.state.error}
-				<input type="submit" className="button" name="submit_form" value="Log In" />
-			</form>
-		);
-	}
+	return (
+		<form className="login-form" onSubmit={submitData}>
+			<h1>Account Login</h1>
+			<label>Username:
+				<input value={username} onChange={
+					e => setUsername(e.target.value)
+				} />
+			</label>
+			<label>Password:
+				<input value={password} onChange={
+					e => setPassword(e.target.value)
+				} />
+			</label>
+			{error}
+			<input type="submit" className="button" name="submit_form" value="Log In" />
+		</form>
+	);
 }
 
-export default withCookies(LoginForm);
+LoginForm.propTypes = {
+	setToken: PropTypes.func.isRequired
+};
+
+export default LoginForm;

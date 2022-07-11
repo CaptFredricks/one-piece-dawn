@@ -7,6 +7,7 @@ class StageAdvanceForm extends Component {
 		this.data = props.data;
 		
 		this.state = {
+			id: props.id,
 			belly: this.data.belly_reward,
 			medallions: this.data.medallion_reward
 		}

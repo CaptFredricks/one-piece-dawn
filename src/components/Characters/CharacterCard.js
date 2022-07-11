@@ -61,7 +61,7 @@ const CharacterCard = ({ match, data }) => {
 								</div>
 								<span className={'unlock' + (unlocked ? ' is-unlocked' : '')} title={unlocked ? 'Character unlocked!' : 'Character unlocks after Stage ' + data.stage_unlock}><i className={unlocked ? 'fas fa-unlock' : 'fas fa-lock'}></i></span>
 							</div>
-							{unlocked && (data.cost === 0 || (data.cost > 0 && is_owned)) && (account.medallions > 0 && account.belly > cost) ? (current_lvl < max_lvl ? <CharacterLevelUpForm ch_id={data.id} cost={cost} /> : <p>Max level reached!</p>) : null}
+							{unlocked && (data.cost === 0 || (data.cost > 0 && is_owned)) && (account.medallions > 0 && account.belly > cost) ? (current_lvl < max_lvl ? <CharacterLevelUpForm acct_id={account.id} ch_id={data.id} cost={cost} /> : <p>Max level reached!</p>) : null}
 							<ul className="stats">
 								<li><strong title="Hitpoints">HP</strong> <span>{hp}</span></li>
 								<li><strong title="Base attack">ATK</strong> <span>{attack}</span></li>
@@ -72,8 +72,11 @@ const CharacterCard = ({ match, data }) => {
 							<h2>Abilities</h2>
 							{abilities.isLoading ? <p>Loading...</p> : (abilities.data.length > 0 ? <ul className="abilities">
 								{abilities.data.map(ab => {
+									let cd = ab.is_passive ? 'Passive' : 'CD: ' + ab.cooldown + ' ' +
+										(ab.cooldown === 1 ? 'turn' : 'turns');
+									
 									return <li key={ab.id} className={current_lvl < ab.lvl_unlock ? 'locked' : ''} title={`${ab.name}${current_lvl < ab.lvl_unlock ? ' \u2014 LOCKED' : ''}
-  ${ab._class.toUpperCase()}: ${ab._value} \u2022 CD: ${ab.cooldown} ${ab.cooldown === 1 ? 'turn' : 'turns'}
+  ${ab._class.replace('_', '/').toUpperCase()}: ${ab._value < 1 ? ab._value * 100 + '%' : ab._value} \u2022 ${cd}
   Unlocks at: Lv${ab.lvl_unlock}
 
 ${ab.description}`}>{ab.name}</li>

@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
-import { instanceOf } from 'prop-types';
-import { withCookies, Cookies } from 'react-cookie';
 
 class Logout extends Component {
-	static propTypes = {
-		cookies: instanceOf(Cookies).isRequired
-	};
-	
 	constructor(props) {
 		super(props);
 		
@@ -16,18 +10,14 @@ class Logout extends Component {
 	}
 	
 	logout = (e) => {
-		const { cookies } = this.props;
-		
 		fetch('/api/account/logout/', {
 			method: 'POST',
 			body: JSON.stringify(this.state)
 		}).then((response) => {
 			return response.text();
 		}).then((text) => {
+			localStorage.clear();
 			console.log('Logged out.');
-			
-			// Delete the cookie
-			cookies.remove('session', { path: '/' });
 			
 			window.location.href = '/';
 			return false;
@@ -41,4 +31,4 @@ class Logout extends Component {
 	}
 }
 
-export default withCookies(Logout);
+export default Logout;

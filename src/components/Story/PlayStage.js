@@ -31,6 +31,7 @@ class PlayStage extends Component {
 		}
 		
 		this.is_mounted = false;
+		this.id = props.id;
 		this.stage = props.stage;
 		this.form_player = props.form_player;
 		this.form_npc = props.form_npc;
@@ -182,9 +183,9 @@ class PlayStage extends Component {
 		return (
 			<section className="formations">
 				<span className="versus">vs.</span>
-				<FormationPlayer form={this.form_player} output={this.state.player} hp={this.state.player_hp} />
+				<FormationPlayer token={this.props.token} form={this.form_player} output={this.state.player} hp={this.state.player_hp} />
 				<FormationNPC form={this.form_npc} output={this.state.npc} stage={this.stage.num} hp={this.state.npc_hp} />
-				{this.state.turn === null ? (this.output.winner === 'player' ? <StageAdvanceForm data={this.stage} /> : <StageRestartForm />) : null}
+				{this.state.turn === null ? (this.output.winner === 'player' ? <StageAdvanceForm id={this.id} data={this.stage} /> : <StageRestartForm />) : null}
 				<StatusUpdates turn={this.state.turn_text} output={this.state.text} />
 			</section>
 		);

@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import FetchAccount from '../Fetch/FetchAccount';
 import AccountForm from './AccountForm';
 
-const EditAccount = ({ match }) => {
+const EditAccount = (props) => {
 	// Fetch account data
-	const account = FetchAccount();
+	const account = FetchAccount(props.token);
 	
 	let content = <div className="content">
 					<AccountForm data={account.data} />

@@ -10,13 +10,14 @@ class PurchaseForm extends Component {
 		this.character = props.character;
 		
 		this.state = {
+			acct_id: this.account.id,
 			id: this.character.id,
 			cost: this.character.cost
 		}
 	}
 	
 	submitData = (e) => {
-		//e.preventDefault();
+		e.preventDefault();
 		
 		fetch('/api/characters/purchase/', {
 			method: 'POST',
@@ -25,6 +26,9 @@ class PurchaseForm extends Component {
 			return response.text();
 		}).then((text) => {
 			console.log(text);
+			
+			window.location.href = '/characters/card/' + this.state.id + '/';
+			return false;
 		});
 	}
 	

@@ -8,7 +8,7 @@ import CharacterCard from './CharacterCard';
 import CharacterPurchase from './CharacterPurchase';
 import './Characters.css';
 
-const Characters = ({ match }) => {
+const Characters = (props, { match }) => {
 	const path = '/characters/';
 	const [page, setPage] = useState({ current: 1, start: 0 });
 	const [update, setUpdate] = useState(false);
@@ -16,7 +16,7 @@ const Characters = ({ match }) => {
 	let page_count = 0;
 	
 	// Fetch account data
-	const account = FetchAccount();
+	const account = FetchAccount(props.token);
 	
 	// Fetch characters count data
 	const characters_count = FetchCharactersCount();

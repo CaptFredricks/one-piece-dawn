@@ -25,7 +25,8 @@ const FetchAbilities = (ch_id) => {
 					_value: row._value,
 					cooldown: row.cooldown,
 					lvl_unlock: row.level_unlock,
-					description: row.description
+					description: row.description,
+					is_passive: row.is_passive
 				};
 			});
 			

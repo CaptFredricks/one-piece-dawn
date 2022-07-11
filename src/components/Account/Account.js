@@ -8,11 +8,11 @@ import Logout from './Login/Logout';
 import Belly from '../../assets/Belly.png';
 import './Account.css';
 
-const Account = () => {
+const Account = (props) => {
 	const path = '/account/';
 	
 	// Fetch account data
-	const account = FetchAccount();
+	const account = FetchAccount(props.token);
 	
 	let content = <p>No account data found!</p>;
 	
@@ -73,7 +73,9 @@ const Account = () => {
 						{content}
 					</main>
 				</Route>
-				<Route path={`${path}edit/`} component={EditAccount} />
+				<Route path={`${path}edit/`}>
+					<EditAccount token={props.token} />
+				</Route>
 				<Route path={`${path}reset-pw/`}>
 					<ResetPassword id={account.data.id} />
 				</Route>

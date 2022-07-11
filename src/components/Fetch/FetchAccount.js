@@ -1,14 +1,15 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 
-const FetchAccount = () => {
+const FetchAccount = (token) => {
 	const has_fetched = useRef(false);
 	const [account, setAccount] = useState({data: [], isLoading: false});
+	token = encodeURIComponent(token);
 	
 	const fetchData = useCallback(async () => {
 		setAccount({data: account.data, isLoading: true});
 		
 		try {
-			const response = await fetch('/api/account/');
+			const response = await fetch(`/api/account/data/${token}/`);
 			
 			if(!response.ok) {
 				throw new Error('Something went wrong!');
@@ -20,7 +21,7 @@ const FetchAccount = () => {
 		} catch(err) {
 			console.log(err.message);
 		}
-	}, [account.data]);
+	}, [account.data, token]);
 	
 	useEffect(() => {
 		if(!has_fetched.current) {

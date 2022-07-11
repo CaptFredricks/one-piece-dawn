@@ -9,9 +9,9 @@ import SetupStage from './SetupStage';
 import PlayStage from './PlayStage';
 import './Story.css';
 
-const Story = () => {
+const Story = (props) => {
 	// Fetch account data
-	const account = FetchAccount();
+	const account = FetchAccount(props.token);
 	
 	// Fetch stages count data
 	const stages_count = FetchStagesCount();
@@ -20,7 +20,7 @@ const Story = () => {
 	const stage = FetchStage(account.data.current_stage, stages_count.data);
 	
 	// Fetch the player's formation data
-	const formation_player = FetchFormationPlayer();
+	const formation_player = FetchFormationPlayer(props.token);
 	
 	// Fetch the NPC's formation data
 	const formation_npc = FetchFormationNPC(account.data.current_stage);
@@ -44,11 +44,11 @@ const Story = () => {
 						<dt>Medallion Reward</dt>
 						<dd>{stage.data.medallion_reward}</dd>
 					</dl>
-					<PlayStage stage={stage.data} form_player={formation_player.data} form_npc={formation_npc.data} output={stage_output} />
+					<PlayStage token={props.token} id={account.data.id} stage={stage.data} form_player={formation_player.data} form_npc={formation_npc.data} output={stage_output} />
 				</div>
 			</div>
 		);
-	}, [account.data, stage.data, formation_player.data, formation_npc.data]);
+	}, [account.data, stage.data, formation_player.data, formation_npc.data, props.token]);
 	
 	const modalContent = useCallback(() => {
 		setContent(

@@ -4,7 +4,59 @@
 *Versions: X.x.x (major releases), x.X.x (standard releases), x.x.X (minor releases/bug fixes)*<br>
 *Other: [a] - alpha, [b] - beta*
 
-## Version 0.8.0 (2021-10-02)
+## Version 0.3.0 (2022-07-10)
+
+- Tweaked a previous entry in the changelog
+- Fixed some issues with the formation components
+- Completely overhauled the login functionality
+- Account data is now fetched using a token generated on the server side
+- When a character is purchased, the system now redirects back to the character card
+- Passive abilities are now notated as such on character cards
+- Players can now use redeem codes
+
+**Bug fixes:**
+- All login/missing data issues have been solved
+
+**Known issues:**
+- AoE abilities are not yet implemented properly
+- Passive abilities are not yet implemented properly
+
+**Modified files:**
+- .gitignore (M)
+- src/App.js
+- src/components/Account/Account.js
+- src/components/Account/AccountForm.js
+- src/components/Account/EditAccount.js
+- src/components/Account/Login/Login.js
+- src/components/Account/Login/LoginForm.js
+- src/components/Account/Login/Logout.js
+- src/components/Account/Reset/ResetAccountForm.js
+- src/components/Account/Reset/ResetPasswordForm.js
+- src/components/Characters/CharacterCard.js
+- src/components/Characters/CharacterLevelUpForm.js
+- src/components/Characters/Characters.js
+- src/components/Characters/PurchaseForm.js
+- src/components/Fetch/FetchAbilities.js
+- src/components/Fetch/FetchAccount.js
+- src/components/Fetch/FetchCharacters.js
+- src/components/Fetch/FetchCharactersFormation.js (N)
+- src/components/Fetch/FetchFormation.js
+- src/components/Fetch/FetchFormationPlayer.js
+- src/components/Formation/EditFormation.js
+- src/components/Formation/Formation.js
+- src/components/Formation/FormationForm.js
+- src/components/Menu.js
+- src/components/Redeem/Redeem.css (N)
+- src/components/Redeem/Redeem.js (N)
+- src/components/Redeem/RedeemForm.js (N)
+- src/components/Story/Formations/FormationPlayer.js
+- src/components/Story/PlayStage.js
+- src/components/Story/StageAdvanceForm.js
+- src/components/Story/Story.js
+- src/useToken.js (N)
+
+## Version 0.2.3 (2021-10-02)
+*Previously 0.8.0*
 
 - Changed all instances of `is_purchased` to `is_owned` in the code
 - Fixed an issue where the Story End text was briefly displayed any time a stage was loaded
@@ -31,7 +83,7 @@
 - src/components/Account/Account.css
 - src/components/Account/Account.js
 - src/components/Account/AccountForm.js
-- src/components/Account/EditAccount.js
+- src/components/Account/EditAccount.js (M)
 - src/components/Account/Login/Login.css (N)
 - src/components/Account/Login/Login.js (N)
 - src/components/Account/Login/LoginForm.js (N)
@@ -54,10 +106,11 @@
 - src/components/Fetch/FetchLogin.js (N)
 - src/components/Fetch/FetchStagesCount.js (M)
 - src/components/Formation/EditFormation.js (M)
-- src/components/Story/Story.js
+- src/components/Story/Story.js (M)
 - src/index.js
 
-## Version 0.7.0 (2021-09-22)
+## Version 0.2.2 (2021-09-22)
+*Previously 0.7.0*
 
 - Tweaked the main menu design
 - A message now displays notifying the player when they've reached the end of the story
@@ -96,7 +149,8 @@
 - src/components/Story/Story.css
 - src/components/Story/Story.js
 
-## Version 0.6.0 (2021-09-04)
+## Version 0.2.1 (2021-09-04)
+*Previously 0.6.0*
 
 - Code cleanup
 - Renamed `FetchStory.js` to `FetchStage.js` and `FetchStoryStages.js` to `FetchStagesCount.js`
@@ -142,7 +196,8 @@
 - src/components/Story/Story.css
 - src/components/Story/Story.js
 
-## Version 0.5.0 (2021-08-30)
+## Version 0.2.0 (2021-08-30)
+*Previously 0.5.0*
 
 - Added images to the characters table
 - Added images for the following characters:
@@ -183,7 +238,8 @@
 - src/components/Story/StageAdvanceForm.js (M)
 - src/components/Story/Story.js (M)
 
-## Version 0.4.0 (2021-08-25)
+## Version 0.1.3 (2021-08-25)
+*Previously 0.4.0*
 
 - Characters that aren't unlocked can no longer be added to the player's formation
 - Players can now see which characters they have unlocked
@@ -214,7 +270,8 @@
 - src/components/Story/Story.css
 - src/components/Story/Story.js
 
-## Version 0.3.0 (2021-08-24)
+## Version 0.1.2 (2021-08-24)
+*Previously 0.3.0*
 
 - Added account management
 - Code cleanup
@@ -254,7 +311,8 @@
 - src/components/Story/Story.css (N)
 - src/components/Story/Story.js (N)
 
-## Version 0.2.0 (2021-07-24)
+## Version 0.1.1 (2021-07-24)
+*Previously 0.2.0*
 
 - Added formations
 - Added level unlock info to character cards

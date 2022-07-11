@@ -4,11 +4,11 @@ class CharacterLevelUp extends Component {
 	constructor(props) {
 		super(props);
 		
-		this.id = props.ch_id;
 		this.cost = props.cost;
 		
 		this.state = {
-			id: this.id,
+			acct_id: props.acct_id,
+			id: props.ch_id,
 			cost: this.cost
 		}
 	}

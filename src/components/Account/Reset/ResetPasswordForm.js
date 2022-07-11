@@ -14,7 +14,6 @@ class ResetPasswordForm extends Component {
 	}
 	
 	submitData = (e) => {
-		// Stop the form from submitting
 		e.preventDefault();
 		
 		if(this.state.id !== 0) {

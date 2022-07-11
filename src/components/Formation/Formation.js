@@ -1,18 +1,18 @@
 import React from 'react';
 import { Link, Route } from 'react-router-dom';
 import FetchFormation from '../Fetch/FetchFormation';
-import FetchCharacters from '../Fetch/FetchCharacters';
+import FetchCharactersFormation from '../Fetch/FetchCharactersFormation';
 import EditFormation from './EditFormation';
 import './Formation.css';
 
-const Formation = ({ match }) => {
+const Formation = (props) => {
 	const path = '/formation/';
 	
 	// Fetch formation data
-	const formation = FetchFormation();
+	const formation = FetchFormation(props.token);
 	
 	// Fetch characters data
-	const characters = FetchCharacters();
+	const characters = FetchCharactersFormation();
 	
 	let content = <p>No formations found!</p>;
 	
@@ -71,7 +71,9 @@ const Formation = ({ match }) => {
 					<Link to={`${path}edit/`} className="button">Edit Formation</Link>
 				</main>
 			</Route>
-			<Route path={`${path}edit/`} component={EditFormation} />
+			<Route path={`${path}edit/`}>
+				<EditFormation token={props.token} form={formation.data} chars={characters.data} />
+			</Route>
 		</div>
 	);
 };
